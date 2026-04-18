@@ -11,6 +11,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -30,6 +34,9 @@ body {
   padding: 1rem 2rem;
   background: #2c3e50;
   color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .brand {
@@ -59,34 +66,35 @@ body {
 
 .container {
   flex: 1;
-  width: min(90%, 680px);
+  width: min(92%, 860px);
+  margin: 2rem auto 3rem;
   display: grid;
-  place-items: center;
-  margin: 0 auto;
+  gap: 1.5rem;
 }
 
 .card {
   background: var(--card-bg);
-  padding: 2.5rem 2rem;
+  padding: 2rem;
   border-radius: 1.25rem;
-  text-align: center;
   box-shadow: var(--shadow);
 }
 
-h1 {
+.card h1,
+.card h2 {
   margin-top: 0;
   margin-bottom: 0.75rem;
-  font-size: clamp(2rem, 4vw, 2.4rem);
+  font-size: clamp(1.6rem, 3.6vw, 2.1rem);
 }
 
-p {
-  margin: 0 auto 1.75rem;
-  max-width: 52ch;
+.card p {
+  margin: 0;
+  max-width: 60ch;
   line-height: 1.7;
   color: #4b5563;
 }
 
 button {
+  margin-top: 1.25rem;
   border: none;
   border-radius: 999px;
   padding: 0.8rem 1.5rem;
@@ -107,4 +115,21 @@ button:hover {
 
 button:active {
   transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
 }
