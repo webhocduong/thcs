@@ -1,7 +1,7 @@
-// Import Firebase từ CDN (quan trọng)
+// Import Firebase từ CDN
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-// Cấu hình Firebase của bạn
+// Cấu hình Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDefd3yBo4hceclxAHKeykx6YbjJAwiJw",
   authDomain: "thcs-77d87.firebaseapp.com",
@@ -15,5 +15,5 @@ const firebaseConfig = {
 // Khởi tạo Firebase
 const app = initializeApp(firebaseConfig);
 
-// Export để dùng ở file khác
+// Export
 export { app };
