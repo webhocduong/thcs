@@ -45,11 +45,11 @@ loginBtn.addEventListener("click", async () => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // 👉 KIỂM TRA ADMIN
+    // 
     if (user.email === vuthanhthuycb@gmail.com) {
       alert("Bạn là ADMIN");
 
-      // 👉 chuyển sang trang admin (sẽ tạo ở bước sau)
+      // 
       window.location.href = "admin.html";
 
     } else {
