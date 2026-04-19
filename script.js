@@ -1,3 +1,4 @@
+console.log("JS ĐANG CHẠY");
 import { auth } from "./firebase.js";
 
 import {
