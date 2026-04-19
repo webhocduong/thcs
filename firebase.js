@@ -1,24 +1,22 @@
-// Import Firebase từ CDN
+// Import Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// Config của bạn (đã đúng)
+// Config Firebase (của bạn)
 const firebaseConfig = {
   apiKey: "AIzaSyDefd3yBo4hceclxAHKeykx6YbjjAwIJw",
   authDomain: "thcs-77d87.firebaseapp.com",
   projectId: "thcs-77d87",
-  storageBucket: "thcs-77d87.firebasestorage.app",
+  storageBucket: "thcs-77d87.appspot.com",
   messagingSenderId: "98344833709",
-  appId: "1:98344833709:web:4543a92e785203a1552c24",
-  measurementId: "G-KF9RFE2NJ2"
+  appId: "1:98344833709:web:4543a92e785203a1552c24"
 };
 
-// Khởi tạo Firebase
+// Khởi tạo
 const app = initializeApp(firebaseConfig);
-
-// Khởi tạo Auth
 const auth = getAuth(app);
 
-// Export để dùng file khác
+// Export
 export { auth };
+
 
