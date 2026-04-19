@@ -38,6 +38,28 @@ registerBtn.addEventListener("click", async () => {
 
 // ===== ĐĂNG NHẬP =====
 loginBtn.addEventListener("click", async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // 👉 KIỂM TRA ADMIN
+    if (user.email === vuthanhthuycb@gmail.com) {
+      alert("Bạn là ADMIN");
+
+      // 👉 chuyển sang trang admin (sẽ tạo ở bước sau)
+      window.location.href = "admin.html";
+
+    } else {
+      alert("Bạn là USER");
+    }
+
+  } catch (error) {
+    alert(error.message);
+  }
+});
   const email = emailInput.value;
   const password = passwordInput.value;
 
