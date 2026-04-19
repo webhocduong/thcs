@@ -37,4 +37,19 @@ loginBtn.addEventListener("click", async () => {
     alert(error.message);
   }
 });
- 
+// ===== ĐĂNG KÝ =====
+const registerBtn = document.getElementById("registerBtn");
+
+registerBtn.addEventListener("click", async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    alert("Đăng ký thành công!");
+    console.log(userCredential.user);
+  } catch (error) {
+    alert(error.message);
+    console.error(error);
+  }
+}); 
