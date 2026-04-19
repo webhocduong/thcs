@@ -21,3 +21,9 @@ const auth = getAuth(app);
 
 // Export để dùng file khác
 export { auth };
+const firebaseConfig = {
+  apiKey: "...",
+  authDomain: "...",
+  projectId: "...",
+  ...
+};
