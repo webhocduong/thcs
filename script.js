@@ -23,11 +23,16 @@ registerBtn.addEventListener("click", async () => {
   const password = passwordInput.value;
 
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    alert("Đăng ký thành công!");
-  } catch (error) {
-    alert(error.message);
-  }
+  await createUserWithEmailAndPassword(auth, email, password);
+
+  alert("Đăng ký thành công!");
+
+  // 
+  window.location.reload();
+
+} catch (error) {
+  alert(error.message);
+}
 });
 
 
