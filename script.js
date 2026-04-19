@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", () => {
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 // Import Firebase
@@ -52,3 +53,4 @@ registerBtn.addEventListener("click", async () => {
     console.error(error);
   }
 }); 
+});
