@@ -4,7 +4,7 @@ import { signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 // 👉 kiểm tra nếu không phải admin thì đá ra ngoài
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    if (user.email !== "admin@gmail.com") {
+    if (user.email !== vuthanhthuycb@gmail.com) {
       alert("Bạn không phải admin!");
       window.location.href = "index.html";
     }
