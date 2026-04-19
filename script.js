@@ -1,56 +1,45 @@
-document.addEventListener("DOMContentLoaded", () => {
+// Import Firebase Auth
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } 
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-// Import Firebase
+
+// Import file firebase của bạn
 import { auth } from "./firebase.js";
-// Lấy nút
-const registerBtn = document.getElementById("registerBtn");
-const loginBtn = document.getElementById("loginBtn");
 
-// Đăng ký
-registerBtn.addEventListener("click", async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+// Đợi web load xong
+document.addEventListener("DOMContentLoaded", () => {
 
-  console.log("Đã bấm đăng ký"); // test
+    // Lấy nút
+    const registerBtn = document.getElementById("registerBtn");
+    const loginBtn = document.getElementById("loginBtn");
 
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    alert("Đăng ký thành công!");
-    console.log(userCredential.user);
-  } catch (error) {
-    alert(error.message);
-    console.error(error);
-  }
-});
+    // ===== ĐĂNG KÝ =====
+    registerBtn.addEventListener("click", async () => {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
-// Đăng nhập
-loginBtn.addEventListener("click", async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            alert("Đăng ký thành công!");
+            console.log(userCredential.user);
+        } catch (error) {
+            alert(error.message);
+            console.error(error);
+        }
+    });
 
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    alert("Đăng nhập thành công!");
-    console.log(userCredential.user);
-  } catch (error) {
-    alert(error.message);
-  }
-});
-// ===== ĐĂNG KÝ =====
-const registerBtn = document.getElementById("registerBtn");
+    // ===== ĐĂNG NHẬP =====
+    loginBtn.addEventListener("click", async () => {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
-registerBtn.addEventListener("click", async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            alert("Đăng nhập thành công!");
+            console.log(userCredential.user);
+        } catch (error) {
+            alert(error.message);
+            console.error(error);
+        }
+    });
 
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    alert("Đăng ký thành công!");
-    console.log(userCredential.user);
-  } catch (error) {
-    alert(error.message);
-    console.error(error);
-  }
-}); 
 });
