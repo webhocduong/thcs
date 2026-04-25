@@ -1,19 +1,21 @@
-console.log("JS ĐANG CHẠY");
 import { auth } from "./firebase.js";
-
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// 👉 Lấy nút
+// Lấy input
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+
+// Lấy nút
 const registerBtn = document.getElementById("registerBtn");
 const loginBtn = document.getElementById("loginBtn");
 
-// 👉 Đăng ký
+// Đăng ký
 registerBtn.addEventListener("click", async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const email = emailInput.value;
+  const password = passwordInput.value;
 
   try {
     await createUserWithEmailAndPassword(auth, email, password);
@@ -23,22 +25,14 @@ registerBtn.addEventListener("click", async () => {
   }
 });
 
-// 👉 Đăng nhập
+// Đăng nhập
 loginBtn.addEventListener("click", async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const email = emailInput.value;
+  const password = passwordInput.value;
 
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-
-    if (user.email === "admin@gmail.com") {
-      alert("Bạn là ADMIN");
-      window.location.href = "admin.html";
-    } else {
-      alert("Bạn là USER");
-    }
-
+    await signInWithEmailAndPassword(auth, email, password);
+    alert("Đăng nhập thành công!");
   } catch (error) {
     alert(error.message);
   }
