@@ -1,9 +1,7 @@
-// firebase.js
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-const firebaseConfig = {
+// Import Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+ const firebaseConfig = {
     apiKey: "AIzaSyDc9tXqKAFo9n1wLZH5Xv_IjwjCAX-gwcc",
     authDomain: "thcs-db7f8.firebaseapp.com",
     projectId: "thcs-db7f8",
@@ -13,7 +11,7 @@ const firebaseConfig = {
   };
 // Khởi tạo Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-// Xuất ra để dùng ở file khác
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+// Export để dùng ở file khác
+export { auth };
