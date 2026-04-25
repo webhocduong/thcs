@@ -4,14 +4,13 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-aut
 
 // Config của bạn
 const firebaseConfig = {
-  apiKey: "AIzaSyDefd3yBo4hceclxAHKeykx6YbjjAwIJw",
-  authDomain: "thcs-77d87.firebaseapp.com",
-  projectId: "thcs-77d87",
-  storageBucket: "thcs-77d87.appspot.com",
-  messagingSenderId: "98344833709",
-  appId: "1:98344833709:web:4543a92e785203a1552c24"
-};
-
+    apiKey: "AIzaSyDc9tXqKAFo9n1wLZH5Xv_IjwjCAX-gwcc",
+    authDomain: "thcs-db7f8.firebaseapp.com",
+    projectId: "thcs-db7f8",
+    storageBucket: "thcs-db7f8.firebasestorage.app",
+    messagingSenderId: "862239704456",
+    appId: "1:862239704456:web:10e18bec6918a656a2e63d"
+  };
 // Khởi tạo
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
