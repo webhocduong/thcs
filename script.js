@@ -1,38 +1,48 @@
-import { auth } from "./firebase.js";
+import { auth, db } from "./firebase.js";
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// Lấy input
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
+import {
+  doc,
+  setDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// Lấy nút
-const registerBtn = document.getElementById("registerBtn");
-const loginBtn = document.getElementById("loginBtn");
-
-// Đăng ký
-registerBtn.addEventListener("click", async () => {
-  const email = emailInput.value;
-  const password = passwordInput.value;
+// ===== ĐĂNG KÝ USER =====
+document.getElementById("registerBtn").addEventListener("click", async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    alert("Đăng ký thành công!");
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+    // 🔥 Lưu USER vào Firestore
+    await setDoc(doc(db, "users", userCredential.user.uid), {
+      email: email,
+      role: "user"
+    });
+
+    alert("Đăng ký USER thành công!");
   } catch (error) {
     alert(error.message);
   }
 });
 
-// Đăng nhập
-loginBtn.addEventListener("click", async () => {
-  const email = emailInput.value;
-  const password = passwordInput.value;
+// ===== ĐĂNG NHẬP USER =====
+document.getElementById("loginBtn").addEventListener("click", async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    alert("Đăng nhập thành công!");
+
+    alert("Đăng nhập USER thành công!");
+
+    // 👉 chuyển sang trang đăng bài
+    window.location.href = "post.html";
+
   } catch (error) {
     alert(error.message);
   }
