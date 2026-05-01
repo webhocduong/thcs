@@ -30,17 +30,31 @@ document.getElementById("registerBtn").addEventListener("click", async () => {
   }
 });
 // ===== ĐĂNG NHẬP USER =====
-document.getElementById("loginBtn").addEventListener("click", async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+import { auth } from "./firebase.js";
+import {
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
+// 🔥 CHỜ HTML LOAD XONG
+window.onload = () => {
 
-    // 👉 HIỂN THỊ USER
-    document.getElementById("result").innerText = "Bạn là user";
+  const loginBtn = document.getElementById("loginBtn");
 
-  } catch (error) {
-    alert(error.message);
-  }
-});
+  loginBtn.addEventListener("click", async () => {
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+
+      // 🔥 HIỂN THỊ
+      document.getElementById("result").innerText = "Bạn là user";
+
+    } catch (error) {
+      alert(error.message);
+    }
+
+  });
+
+};
