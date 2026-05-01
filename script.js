@@ -1,74 +1,65 @@
 import { auth, db } from "./firebase.js";
-import { 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword 
+
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// Lấy input
-const email = document.getElementById("email");
-const password = document.getElementById("password");
-
-// Lấy nút
-const registerBtn = document.getElementById("registerBtn");
-const loginBtn = document.getElementById("loginBtn");
-
-// Lấy message
+// Lấy element
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const btnRegister = document.getElementById("btnRegister");
+const btnLogin = document.getElementById("btnLogin");
 const message = document.getElementById("message");
 
+// 👉 Test xem nút có hoạt động không
+btnLogin.addEventListener("click", () => {
+  alert("Nút đăng nhập hoạt động");
+});
 
-// 👉 Đăng ký
-registerBtn.onclick = async () => {
+// Đăng ký
+btnRegister.addEventListener("click", async () => {
+  const email = emailInput.value;
+  const password = passwordInput.value;
+
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email.value,
-      password.value
-    );
-
-    const user = userCredential.user;
-
-    // Lưu vào Firestore
-    await setDoc(doc(db, "nguoidung", user.uid), {
-      email: email.value,
-      role: "user"
-    });
-
-    message.innerText = "Đăng ký thành công!";
+    await createUserWithEmailAndPassword(auth, email, password);
+    alert("Đăng ký thành công");
   } catch (error) {
     alert(error.message);
   }
-};
+});
 
+// Đăng nhập
+btnLogin.addEventListener("click", async () => {
+  const email = emailInput.value;
+  const password = passwordInput.value;
 
-// 👉 Đăng nhập
-loginBtn.onclick = async () => {
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email.value,
-      password.value
-    );
-
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    const docRef = doc(db, "nguoidung", user.uid);
+    const docRef = doc(db, "nguoi_dung", user.uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       const data = docSnap.data();
 
       if (data.role === "admin") {
-        message.innerText = "Bạn là admin";
+        message.innerText = "Bạn là ADMIN";
       } else {
-        message.innerText = "Bạn là user";
+        message.innerText = "Bạn là USER";
       }
     } else {
-      message.innerText = "Không tìm thấy dữ liệu!";
+      message.innerText = "Không có dữ liệu user";
     }
 
   } catch (error) {
     alert(error.message);
   }
-};
+});
