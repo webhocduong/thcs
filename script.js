@@ -1,53 +1,60 @@
 import { auth, db } from "./firebase.js";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { doc, setDoc, getDoc } 
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword 
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// Lấy phần tử
+import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// Lấy input
 const email = document.getElementById("email");
 const password = document.getElementById("password");
+
+// Lấy nút
 const registerBtn = document.getElementById("registerBtn");
 const loginBtn = document.getElementById("loginBtn");
+
+// Lấy message
 const message = document.getElementById("message");
 
-// 👉 DEBUG: xem có lấy được nút không
-console.log(registerBtn, loginBtn);
 
-// Đăng ký
+// 👉 Đăng ký
 registerBtn.onclick = async () => {
   try {
-    const userCred = await createUserWithEmailAndPassword(
+    const userCredential = await createUserWithEmailAndPassword(
       auth,
       email.value,
       password.value
     );
 
-    const user = userCred.user;
+    const user = userCredential.user;
 
-    await setDoc(doc(db, "users", user.uid), {
-      email: user.email,
+    // Lưu vào Firestore
+    await setDoc(doc(db, "nguoidung", user.uid), {
+      email: email.value,
       role: "user"
     });
 
-    message.innerText = "Đăng ký thành công";
-  } catch (err) {
-    alert(err.message);
+    message.innerText = "Đăng ký thành công!";
+  } catch (error) {
+    alert(error.message);
   }
 };
 
-// Đăng nhập
+
+// 👉 Đăng nhập
 loginBtn.onclick = async () => {
   try {
-    const userCred = await signInWithEmailAndPassword(
+    const userCredential = await signInWithEmailAndPassword(
       auth,
       email.value,
       password.value
     );
 
-    const user = userCred.user;
+    const user = userCredential.user;
 
-    const docSnap = await getDoc(doc(db, "users", user.uid));
+    const docRef = doc(db, "nguoidung", user.uid);
+    const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       const data = docSnap.data();
@@ -57,9 +64,11 @@ loginBtn.onclick = async () => {
       } else {
         message.innerText = "Bạn là user";
       }
+    } else {
+      message.innerText = "Không tìm thấy dữ liệu!";
     }
 
-  } catch (err) {
-    alert(err.message);
+  } catch (error) {
+    alert(error.message);
   }
 };
