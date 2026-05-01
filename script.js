@@ -13,9 +13,9 @@ import {
 // Lấy element
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
-const btnRegister = document.getElementById("btnRegister");
-const btnLogin = document.getElementById("btnLogin");
-const message = document.getElementById("message");
+const btnRegister = document.getElementById("registerBtn");
+const btnLogin = document.getElementById("loginBtn");
+const message = document.getElementById("result");
 btnLogin.addEventListener("click", async () => {
     const email = emailInput.value;
     const password = passwordInput.value;
