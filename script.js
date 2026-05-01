@@ -29,7 +29,6 @@ document.getElementById("registerBtn").addEventListener("click", async () => {
     alert(error.message);
   }
 });
-
 // ===== ĐĂNG NHẬP USER =====
 document.getElementById("loginBtn").addEventListener("click", async () => {
   const email = document.getElementById("email").value;
@@ -38,10 +37,8 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
 
-    alert("Đăng nhập USER thành công!");
-
-    // 👉 chuyển sang trang đăng bài
-    window.location.href = "post.html";
+    // 👉 HIỂN THỊ USER
+    document.getElementById("result").innerText = "Bạn là user";
 
   } catch (error) {
     alert(error.message);
