@@ -16,12 +16,33 @@ const passwordInput = document.getElementById("password");
 const btnRegister = document.getElementById("btnRegister");
 const btnLogin = document.getElementById("btnLogin");
 const message = document.getElementById("message");
+btnLogin.addEventListener("click", async () => {
+    const email = emailInput.value;
+    const password = passwordInput.value;
 
-// 👉 Test xem nút có hoạt động không
-btnLogin.addEventListener("click", () => {
-  alert("Nút đăng nhập hoạt động");
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        const docRef = doc(db, "người dùng", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+
+            if (data.role === "admin") {
+                message.innerText = "Bạn là ADMIN";
+            } else {
+                message.innerText = "Bạn là USER";
+            }
+        } else {
+            message.innerText = "Không có dữ liệu user";
+        }
+
+    } catch (error) {
+        alert(error.message);
+    }
 });
-
 // Đăng ký
 btnRegister.addEventListener("click", async () => {
   const email = emailInput.value;
@@ -44,7 +65,7 @@ btnLogin.addEventListener("click", async () => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    const docRef = doc(db, "nguoi_dung", user.uid);
+    const docRef = doc(db, "người dùng", user.uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
