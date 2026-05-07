@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Web Trường Học</title>
+  <title>Trường học</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -14,7 +14,35 @@
 
   <div class="container">
 
-    <h1>Tin tức trường học</h1>
+    <!-- LOGIN -->
+
+    <div class="auth-box">
+
+      <h1>Đăng ký / Đăng nhập</h1>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Nhập email"
+      >
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Nhập mật khẩu"
+      >
+
+      <button id="registerBtn">
+        Đăng ký
+      </button>
+
+      <button id="loginBtn">
+        Đăng nhập
+      </button>
+
+      <p id="result"></p>
+
+    </div>
 
     <!-- MENU -->
 
@@ -28,7 +56,7 @@
 
     </div>
 
-    <!-- BÀI VIẾT 1 -->
+    <!-- TIN 1 -->
 
     <div class="news-card">
 
@@ -46,7 +74,7 @@
 
     </div>
 
-    <!-- BÀI VIẾT 2 -->
+    <!-- TIN 2 -->
 
     <div class="news-card">
 
@@ -56,15 +84,14 @@
 
       <p>
         Các lớp đã sẵn sàng cho chuỗi hoạt động
-        bóng đá, kéo co và chạy tiếp sức,
-        hứa hẹn mang đến bầu không khí sôi nổi.
+        bóng đá, kéo co và chạy tiếp sức.
       </p>
 
       <button>Xem thêm</button>
 
     </div>
 
-    <!-- BÀI VIẾT 3 -->
+    <!-- TIN 3 -->
 
     <div class="news-card">
 
@@ -74,8 +101,7 @@
 
       <p>
         Giáo viên các bộ môn mở thêm buổi ôn tập
-        miễn phí giúp học sinh chuẩn bị tốt hơn
-        trước kỳ thi cuối học kỳ.
+        giúp học sinh chuẩn bị tốt hơn.
       </p>
 
       <button>Xem thêm</button>
@@ -83,6 +109,8 @@
     </div>
 
   </div>
+
+  <script type="module" src="script.js"></script>
 
 </body>
 
