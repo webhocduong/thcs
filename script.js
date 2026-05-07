@@ -1,146 +1,186 @@
-import { auth, db } from "./firebase.js";
+import {
+  auth
+}
+from "./firebase.js";
 
 import {
+
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-import {
-  doc,
-  setDoc,
-  getDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  signInWithEmailAndPassword,
 
+  signOut,
 
-// ======================
-// LẤY HTML
-// ======================
+  onAuthStateChanged
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+/* INPUT */
 
 const emailInput =
-  document.getElementById("email");
+document.getElementById("email");
 
 const passwordInput =
-  document.getElementById("password");
+document.getElementById("password");
+
+/* BUTTON */
 
 const registerBtn =
-  document.getElementById("registerBtn");
+document.getElementById("registerBtn");
 
 const loginBtn =
-  document.getElementById("loginBtn");
+document.getElementById("loginBtn");
+
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+const userBtn =
+document.getElementById("userBtn");
+
+/* SECTIONS */
+
+const authSection =
+document.getElementById("authSection");
+
+const userSection =
+document.getElementById("userSection");
+
+const userEmail =
+document.getElementById("userEmail");
+
+const dropdownMenu =
+document.getElementById("dropdownMenu");
 
 const result =
-  document.getElementById("result");
+document.getElementById("result");
 
-
-// ======================
-// ĐĂNG KÝ
-// ======================
+/* ĐĂNG KÝ */
 
 registerBtn.addEventListener(
-  "click",
-  async () => {
+"click",
+async()=>{
 
-    const email = emailInput.value;
+  try{
 
-    const password = passwordInput.value;
+    await
+    createUserWithEmailAndPassword(
 
-    try {
+      auth,
 
-      const userCredential =
-        await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+      emailInput.value,
 
-      const user = userCredential.user;
+      passwordInput.value
 
-      let role = "user";
+    );
 
-      // EMAIL ADMIN
-      if (
-        email ===
-        "vuthanhthuycb@gmail.com"
-      ) {
-        role = "admin";
-      }
+    result.innerText =
+    "Đăng ký thành công";
 
-      // LƯU FIRESTORE
-      await setDoc(
-        doc(db, "nguoi_dung", user.uid),
-        {
-          email: email,
-          role: role
-        }
-      );
-
-      result.innerText =
-        "Đăng ký thành công";
-
-    } catch (error) {
-
-      result.innerText =
-        error.message;
-    }
   }
-);
 
+  catch(error){
 
-// ======================
-// ĐĂNG NHẬP
-// ======================
+    result.innerText =
+    error.message;
+  }
+
+});
+
+/* LOGIN */
 
 loginBtn.addEventListener(
-  "click",
-  async () => {
+"click",
+async()=>{
 
-    const email = emailInput.value;
+  try{
 
-    const password = passwordInput.value;
+    await
+    signInWithEmailAndPassword(
 
-    try {
+      auth,
 
-      const userCredential =
-        await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+      emailInput.value,
 
-      const user = userCredential.user;
+      passwordInput.value
 
-      const docRef =
-        doc(db, "nguoi_dung", user.uid);
+    );
 
-      const docSnap =
-        await getDoc(docRef);
+    result.innerText =
+    "Đăng nhập thành công";
 
-      if (docSnap.exists()) {
-
-        const data = docSnap.data();
-
-        if (data.role === "admin") {
-
-          result.innerText =
-            "Bạn là ADMIN";
-
-        } else {
-
-          result.innerText =
-            "Bạn là USER";
-        }
-window.location.href =
-"news.html";
-      } else {
-
-        result.innerText =
-          "Không có dữ liệu user";
-      }
-
-    } catch (error) {
-
-      result.innerText =
-        error.message;
-    }
   }
-);
+
+  catch(error){
+
+    result.innerText =
+    error.message;
+  }
+
+});
+
+/* LOGOUT */
+
+logoutBtn.addEventListener(
+"click",
+async()=>{
+
+  await signOut(auth);
+
+});
+
+/* CHECK LOGIN */
+
+onAuthStateChanged(
+auth,
+(user)=>{
+
+  if(user){
+
+    authSection.style.display =
+    "none";
+
+    userSection.style.display =
+    "block";
+
+    userEmail.innerText =
+    user.email;
+
+  }
+
+  else{
+
+    authSection.style.display =
+    "flex";
+
+    userSection.style.display =
+    "none";
+  }
+
+});
+
+/* MENU */
+
+userBtn.addEventListener(
+"click",
+()=>{
+
+  if(
+    dropdownMenu.style.display
+    ===
+    "block"
+  ){
+
+    dropdownMenu.style.display =
+    "none";
+
+  }
+
+  else{
+
+    dropdownMenu.style.display =
+    "block";
+  }
+
+});
