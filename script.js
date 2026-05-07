@@ -129,7 +129,8 @@ loginBtn.addEventListener(
           result.innerText =
             "Bạn là USER";
         }
-
+window.location.href =
+"news.html";
       } else {
 
         result.innerText =
