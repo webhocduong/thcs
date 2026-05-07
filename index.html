@@ -2,115 +2,172 @@
 <html lang="vi">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Trường học</title>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Website Trường Học</title>
 
   <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-  <div class="container">
+  <!-- HEADER -->
 
-    <!-- LOGIN -->
+  <header>
 
-    <div class="auth-box">
+    <h1>TRƯỜNG THPT ABC</h1>
 
-      <h1>Đăng ký / Đăng nhập</h1>
+    <p>
+      Website thông báo và học tập
+    </p>
 
-      <input
-        type="email"
-        id="email"
-        placeholder="Nhập email"
-      >
+  </header>
 
-      <input
-        type="password"
-        id="password"
-        placeholder="Nhập mật khẩu"
-      >
+  <!-- MENU -->
 
-      <button id="registerBtn">
-        Đăng ký
-      </button>
+  <nav>
 
-      <button id="loginBtn">
-        Đăng nhập
-      </button>
+    <a href="#">Trang chủ</a>
 
-      <p id="result"></p>
+    <a href="#">Thông báo</a>
 
-    </div>
+    <a href="#">Hoạt động</a>
 
-    <!-- MENU -->
+    <a href="#">Học tập</a>
 
-    <div class="menu">
+    <a href="#">Liên hệ</a>
 
-      <button>Thông báo</button>
+  </nav>
 
-      <button>Hoạt động</button>
+  <!-- LOGIN -->
 
-      <button>Học tập</button>
+  <section class="login-box">
 
-    </div>
+    <h2>Đăng ký / Đăng nhập</h2>
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Nhập email"
+    >
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Nhập mật khẩu"
+    >
+
+    <button id="registerBtn">
+      Đăng ký
+    </button>
+
+    <button id="loginBtn">
+      Đăng nhập
+    </button>
+
+    <p id="result"></p>
+
+  </section>
+
+  <!-- TIN TỨC -->
+
+  <main>
 
     <!-- TIN 1 -->
 
-    <div class="news-card">
+    <div class="card">
 
-      <h2>
-        Thông báo lịch họp phụ huynh học kỳ II
-      </h2>
+      <img
+        src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1"
+      >
 
-      <p>
-        Nhà trường sẽ tổ chức họp phụ huynh
-        vào sáng Chủ nhật tuần này để cập nhật
-        kết quả học tập và kế hoạch cuối kỳ.
-      </p>
+      <div class="content">
 
-      <button>Xem thêm</button>
+        <h2>
+          Họp phụ huynh học kỳ II
+        </h2>
+
+        <p>
+          Nhà trường sẽ tổ chức họp phụ huynh
+          vào Chủ nhật tuần này để cập nhật
+          kết quả học tập của học sinh.
+        </p>
+
+        <button>
+          Xem thêm
+        </button>
+
+      </div>
 
     </div>
 
     <!-- TIN 2 -->
 
-    <div class="news-card">
+    <div class="card">
 
-      <h2>
-        Ngày hội thể thao cấp trường 2026
-      </h2>
+      <img
+        src="https://images.unsplash.com/photo-1517649763962-0c623066013b"
+      >
 
-      <p>
-        Các lớp đã sẵn sàng cho chuỗi hoạt động
-        bóng đá, kéo co và chạy tiếp sức.
-      </p>
+      <div class="content">
 
-      <button>Xem thêm</button>
+        <h2>
+          Ngày hội thể thao 2026
+        </h2>
+
+        <p>
+          Các lớp chuẩn bị cho chuỗi hoạt động
+          thể thao sôi động và hấp dẫn.
+        </p>
+
+        <button>
+          Xem thêm
+        </button>
+
+      </div>
 
     </div>
 
     <!-- TIN 3 -->
 
-    <div class="news-card">
+    <div class="card">
 
-      <h2>
-        Tăng cường ôn tập cho kỳ kiểm tra cuối kỳ
-      </h2>
+      <img
+        src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
+      >
 
-      <p>
-        Giáo viên các bộ môn mở thêm buổi ôn tập
-        giúp học sinh chuẩn bị tốt hơn.
-      </p>
+      <div class="content">
 
-      <button>Xem thêm</button>
+        <h2>
+          Ôn tập cuối kỳ
+        </h2>
+
+        <p>
+          Giáo viên mở thêm các buổi ôn tập
+          giúp học sinh chuẩn bị cho kỳ thi.
+        </p>
+
+        <button>
+          Xem thêm
+        </button>
+
+      </div>
 
     </div>
 
-  </div>
+  </main>
 
-  <script type="module" src="script.js"></script>
+  <script
+    type="module"
+    src="script.js"
+  ></script>
 
 </body>
 
