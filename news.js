@@ -1,4 +1,8 @@
-import { db } from "./firebase.js";
+import {
+  db,
+  auth
+}
+from "./firebase.js";
 
 import {
 
@@ -8,7 +12,11 @@ import {
 
   orderBy,
 
-  query
+  query,
+
+  deleteDoc,
+
+  doc
 
 }
 from
@@ -16,6 +24,8 @@ from
 
 const posts =
 document.getElementById("posts");
+
+/* LOAD POSTS */
 
 async function loadPosts(){
 
@@ -38,10 +48,35 @@ async function loadPosts(){
   const querySnapshot =
   await getDocs(q);
 
-  querySnapshot.forEach((doc)=>{
+  querySnapshot.forEach((postDoc)=>{
 
     const data =
-    doc.data();
+    postDoc.data();
+
+    const postId =
+    postDoc.id;
+
+    let deleteButton = "";
+
+    /* KIỂM TRA NGƯỜI ĐĂNG */
+
+    if(
+      auth.currentUser &&
+      auth.currentUser.email ===
+      data.userEmail
+    ){
+
+      deleteButton = `
+
+        <button
+        onclick="deletePost('${postId}')"
+        class="delete-btn"
+        >
+          Xóa bài
+        </button>
+
+      `;
+    }
 
     posts.innerHTML += `
 
@@ -60,6 +95,10 @@ async function loadPosts(){
           ${data.userEmail}
         </small>
 
+        <br><br>
+
+        ${deleteButton}
+
       </div>
 
     `;
@@ -67,5 +106,49 @@ async function loadPosts(){
   });
 
 }
+
+/* XÓA BÀI */
+
+window.deletePost =
+async function(postId){
+
+  const check =
+  confirm(
+    "Bạn có chắc muốn xóa?"
+  );
+
+  if(!check){
+
+    return;
+  }
+
+  try{
+
+    await deleteDoc(
+
+      doc(
+        db,
+        "bai_viet",
+        postId
+      )
+
+    );
+
+    alert(
+      "Đã xóa bài viết"
+    );
+
+    loadPosts();
+
+  }
+
+  catch(error){
+
+    alert(
+      error.message
+    );
+  }
+
+};
 
 loadPosts();
