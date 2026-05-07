@@ -22,12 +22,20 @@ import {
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+import {
+
+  onAuthStateChanged
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 const posts =
 document.getElementById("posts");
 
 /* LOAD POSTS */
 
-async function loadPosts(){
+async function loadPosts(user){
 
   posts.innerHTML = "";
 
@@ -61,8 +69,8 @@ async function loadPosts(){
     /* KIỂM TRA NGƯỜI ĐĂNG */
 
     if(
-      auth.currentUser &&
-      auth.currentUser.email ===
+      user &&
+      user.email ===
       data.userEmail
     ){
 
@@ -107,7 +115,7 @@ async function loadPosts(){
 
 }
 
-/* XÓA BÀI */
+/* XÓA */
 
 window.deletePost =
 async function(postId){
@@ -135,10 +143,10 @@ async function(postId){
     );
 
     alert(
-      "Đã xóa bài viết"
+      "Đã xóa bài"
     );
 
-    loadPosts();
+    loadPosts(auth.currentUser);
 
   }
 
@@ -151,4 +159,12 @@ async function(postId){
 
 };
 
-loadPosts();
+/* KIỂM TRA LOGIN */
+
+onAuthStateChanged(
+auth,
+(user)=>{
+
+  loadPosts(user);
+
+});
