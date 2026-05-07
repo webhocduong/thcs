@@ -1,144 +1,145 @@
 import { auth, db } from "./firebase.js";
 
 import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
-    doc,
-    setDoc,
-    getDoc
+  doc,
+  setDoc,
+  getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-// =========================
+// ======================
 // LẤY HTML
-// =========================
+// ======================
 
-const emailInput = document.getElementById("email");
+const emailInput =
+  document.getElementById("email");
 
-const passwordInput = document.getElementById("password");
+const passwordInput =
+  document.getElementById("password");
 
-const registerBtn = document.getElementById("registerBtn");
+const registerBtn =
+  document.getElementById("registerBtn");
 
-const loginBtn = document.getElementById("loginBtn");
+const loginBtn =
+  document.getElementById("loginBtn");
 
-const result = document.getElementById("result");
+const result =
+  document.getElementById("result");
 
 
-// =========================
+// ======================
 // ĐĂNG KÝ
-// =========================
+// ======================
 
-registerBtn.addEventListener("click", async () => {
+registerBtn.addEventListener(
+  "click",
+  async () => {
 
     const email = emailInput.value;
 
     const password = passwordInput.value;
 
-    if (email === "" || password === "") {
-
-        result.innerText = "Vui lòng nhập đầy đủ";
-
-        return;
-    }
-
     try {
 
-        // Tạo user Firebase
-        const userCredential =
-            await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
+      const userCredential =
+        await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
 
-        const user = userCredential.user;
+      const user = userCredential.user;
 
-        // Lưu Firestore
-        await setDoc(doc(db, "nguoi_dung", user.uid), {
+      let role = "user";
 
-            email: user.email,
+      // EMAIL ADMIN
+      if (
+        email ===
+        "vuthanhthuycb@gmail.com"
+      ) {
+        role = "admin";
+      }
 
-            role: "user"
+      // LƯU FIRESTORE
+      await setDoc(
+        doc(db, "nguoi_dung", user.uid),
+        {
+          email: email,
+          role: role
+        }
+      );
 
-        });
-
-        result.innerText = "Đăng ký thành công";
+      result.innerText =
+        "Đăng ký thành công";
 
     } catch (error) {
 
-        result.innerText = error.message;
+      result.innerText =
+        error.message;
     }
+  }
+);
 
-});
 
-
-// =========================
+// ======================
 // ĐĂNG NHẬP
-// =========================
+// ======================
 
-loginBtn.addEventListener("click", async () => {
+loginBtn.addEventListener(
+  "click",
+  async () => {
 
     const email = emailInput.value;
 
     const password = passwordInput.value;
 
-    if (email === "" || password === "") {
-
-        result.innerText = "Vui lòng nhập đầy đủ";
-
-        return;
-    }
-
     try {
 
-        // LOGIN FIREBASE
-        const userCredential =
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-
-        const user = userCredential.user;
-
-        // ĐỌC FIRESTORE
-        const docRef = doc(
-            db,
-            "nguoi_dung",
-            user.uid
+      const userCredential =
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
         );
 
-        const docSnap = await getDoc(docRef);
+      const user = userCredential.user;
 
-        // KIỂM TRA USER
-        if (docSnap.exists()) {
+      const docRef =
+        doc(db, "nguoi_dung", user.uid);
 
-            const data = docSnap.data();
+      const docSnap =
+        await getDoc(docRef);
 
-            // ADMIN
-            if (
-                data.role === "admin" &&
-                user.email === "vuthanhthuycb@gmail.com"
-            ) {
+      if (docSnap.exists()) {
 
-                result.innerText = "Bạn là ADMIN";
+        const data = docSnap.data();
 
-            } else {
+        if (data.role === "admin") {
 
-                result.innerText = "Bạn là USER";
-            }
+          result.innerText =
+            "Bạn là ADMIN";
 
         } else {
 
-            result.innerText = "Không có dữ liệu user";
+          result.innerText =
+            "Bạn là USER";
         }
+
+      } else {
+
+        result.innerText =
+          "Không có dữ liệu user";
+      }
 
     } catch (error) {
 
-        result.innerText = error.message;
+      result.innerText =
+        error.message;
     }
-
-});
+  }
+);
