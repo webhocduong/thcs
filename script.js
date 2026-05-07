@@ -30,7 +30,7 @@ btnLogin.addEventListener("click", async () => {
         if (docSnap.exists()) {
             const data = docSnap.data();
 
-            if (data.role === "admin") {
+            if (data.role === "admin") email {vuthanhthuycb@gmail.com}
                 message.innerText = "Bạn là ADMIN";
             } else {
                 message.innerText = "Bạn là USER";
