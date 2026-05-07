@@ -9,6 +9,7 @@ const firebaseConfig = {
     storageBucket: "thcs-77d87.firebasestorage.app",
     messagingSenderId: "98344833709",
     appId: "1:98344833709:web:4543a92e785203a1552c24"
+    measurementId: "G-KF9RFE2NJ2"
 };
 // KHỞI TẠO FIREBASE
 const app = initializeApp(firebaseConfig);
