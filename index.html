@@ -88,21 +88,24 @@ onclick="window.location.href='post.html'"
 
 </nav>
   <!-- LOGIN -->
+<!-- USER BAR -->
 
-  <section class="login-box">
+<div class="user-bar">
 
-    <h2>Đăng ký / Đăng nhập</h2>
+  <!-- CHƯA LOGIN -->
+
+  <div id="authSection">
 
     <input
       type="email"
       id="email"
-      placeholder="Nhập email"
+      placeholder="Email"
     >
 
     <input
       type="password"
       id="password"
-      placeholder="Nhập mật khẩu"
+      placeholder="Mật khẩu"
     >
 
     <button id="registerBtn">
@@ -113,10 +116,50 @@ onclick="window.location.href='post.html'"
       Đăng nhập
     </button>
 
-    <p id="result"></p>
+  </div>
 
-  </section>
+  <!-- ĐÃ LOGIN -->
 
+  <div
+    id="userSection"
+    style="display:none;"
+  >
+
+    <button id="userBtn">
+
+      👤
+      <span id="userEmail"></span>
+
+    </button>
+
+    <!-- MENU -->
+
+    <div
+      id="dropdownMenu"
+      class="dropdown-menu"
+    >
+
+      <button id="profileBtn">
+        Hồ sơ
+      </button>
+
+      <button
+      onclick="window.location.href='myposts.html'"
+      >
+        Bài đã đăng
+      </button>
+
+      <button id="logoutBtn">
+        Đăng xuất
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<p id="result"></p>
   <!-- NEWS -->
 
   <section class="news-container">
