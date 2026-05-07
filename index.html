@@ -100,30 +100,46 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Đăng nhập Firebase</title>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Đăng nhập</title>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-    <h2>Đăng ký / Đăng nhập</h2>
+  <div class="container">
 
-    <input type="email" id="email" placeholder="Nhập email">
-    <br><br>
+    <h1>Đăng ký / Đăng nhập</h1>
 
-    <input type="password" id="password" placeholder="Nhập mật khẩu">
-    <br><br>
+    <input
+      type="email"
+      id="email"
+      placeholder="Nhập email"
+    />
 
-    <button id="registerBtn">Đăng ký</button>
+    <input
+      type="password"
+      id="password"
+      placeholder="Nhập mật khẩu"
+    />
 
-    <button id="loginBtn">Đăng nhập</button>
+    <button id="registerBtn">
+      Đăng ký
+    </button>
 
-    <br><br>
+    <button id="loginBtn">
+      Đăng nhập
+    </button>
 
     <p id="result"></p>
 
-    <!-- KẾT NỐI JS -->
-    <script type="module" src="script.js"></script>
+  </div>
+
+  <script type="module" src="script.js"></script>
 
 </body>
 
