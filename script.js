@@ -39,7 +39,7 @@ document.getElementById("logoutBtn");
 const userBtn =
 document.getElementById("userBtn");
 
-/* SECTIONS */
+/* SECTION */
 
 const authSection =
 document.getElementById("authSection");
@@ -56,7 +56,7 @@ document.getElementById("dropdownMenu");
 const result =
 document.getElementById("result");
 
-/* ĐĂNG KÝ */
+/* REGISTER */
 
 registerBtn.addEventListener(
 "click",
