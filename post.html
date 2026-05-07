@@ -1,18 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
+
 <head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>Đăng bài</title>
+
+  <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-<h2>Đăng bài viết</h2>
+  <!-- TOP BAR -->
 
-<input type="text" id="title" placeholder="Tiêu đề"><br><br>
-<textarea id="content" placeholder="Nội dung"></textarea><br><br>
+  <div class="top-bar">
 
-<button id="postBtn">Đăng bài</button>
+    📢 Đăng bài viết trường học
 
-<script type="module" src="post.js"></script>
+  </div>
+
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <div class="header-left">
+
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
+        class="logo"
+      >
+
+      <div>
+
+        <h1>THCS HÒA CHUNG</h1>
+
+        <p>
+          Tạo bài viết mới
+        </p>
+
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- FORM -->
+
+  <div class="post-wrapper">
+
+    <section class="post-box">
+
+      <h2>
+        Tạo bài viết
+      </h2>
+
+      <input
+        type="text"
+        id="title"
+        placeholder="Nhập tiêu đề bài viết"
+      >
+
+      <textarea
+        id="content"
+        placeholder="Nhập nội dung bài viết"
+      ></textarea>
+
+      <button id="postBtn">
+        Đăng bài
+      </button>
+
+      <button
+        class="home-btn"
+        onclick="window.location.href='index.html'"
+      >
+        Quay về trang chủ
+      </button>
+
+      <p id="result"></p>
+
+    </section>
+
+  </div>
+
+  <script
+    type="module"
+    src="post.js"
+  ></script>
 
 </body>
+
 </html>
