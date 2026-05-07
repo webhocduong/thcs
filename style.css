@@ -1,207 +1,105 @@
-:root {
-  --bg: #f5f7fb;
-  --card-bg: #ffffff;
-  --text: #1f2937;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial;
 }
 
-* {
-  box-sizing: border-box;
+body{
+  background:#f1f5f9;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  height:100vh;
 }
 
-html {
-  scroll-behavior: smooth;
+.container{
+
+  width:350px;
+
+  background:white;
+
+  padding:30px;
+
+  border-radius:20px;
+
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family: "Be Vietnam Pro", system-ui, -apple-system, Segoe UI, Roboto, Arial,
-    sans-serif;
-  background: radial-gradient(circle at top, #eef3ff 0%, var(--bg) 45%, #edf2f7 100%);
-  color: var(--text);
+h1{
+  text-align:center;
+  margin-bottom:25px;
+  color:#1e293b;
 }
 
-.site-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2rem;
-  background: #2c3e50;
-  color: #fff;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+input{
+
+  width:100%;
+
+  padding:14px;
+
+  margin-bottom:15px;
+
+  border:1px solid #cbd5e1;
+
+  border-radius:10px;
+
+  font-size:16px;
 }
 
-.brand {
-  font-size: 1.15rem;
-  font-weight: 700;
+input:focus{
+  outline:none;
+  border:1px solid #2563eb;
 }
 
-.menu {
-  display: flex;
-  gap: 1.25rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+button{
+
+  width:100%;
+
+  padding:14px;
+
+  border:none;
+
+  border-radius:10px;
+
+  font-size:16px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  margin-bottom:12px;
+
+  transition:0.3s;
 }
 
-.menu a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease, opacity 0.2s ease;
+#registerBtn{
+  background:#2563eb;
+  color:white;
 }
 
-.menu a:hover {
-  color: #cfe3ff;
-  opacity: 0.95;
+#registerBtn:hover{
+  background:#1d4ed8;
 }
 
-.container {
-  flex: 1;
-  width: min(92%, 860px);
-  margin: 2rem auto 3rem;
-  display: grid;
-  gap: 1.5rem;
+#loginBtn{
+  background:#0f172a;
+  color:white;
 }
 
-.card {
-  background: var(--card-bg);
-  padding: 2rem;
-  border-radius: 1.25rem;
-  box-shadow: var(--shadow);
+#loginBtn:hover{
+  background:#020617;
 }
 
-.card h1,
-.card h2 {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-  font-size: clamp(1.6rem, 3.6vw, 2.1rem);
-}
+#result{
 
-.card p {
-  margin: 0;
-  max-width: 60ch;
-  line-height: 1.7;
-  color: #4b5563;
-}
+  text-align:center;
 
-button {
-  margin-top: 1.25rem;
-  border: none;
-  border-radius: 999px;
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
-  background: var(--accent);
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
-}
+  margin-top:15px;
 
-button:hover {
-  background: var(--accent-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 14px 24px rgba(29, 78, 216, 0.3);
-}
+  font-weight:bold;
 
-button:active {
-  transform: translateY(0);
-}
-
-.news-categories {
-  margin-top: 1.25rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.news-category {
-  margin-top: 0;
-  padding: 0.55rem 1.1rem;
-  border-radius: 0.75rem;
-  background: #e9eef8;
-  color: #334155;
-  box-shadow: none;
-  font-size: 0.95rem;
-}
-
-.news-category:hover {
-  background: #dde7fb;
-  color: #1e40af;
-  box-shadow: none;
-}
-
-.news-category.is-active {
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
-}
-
-.news-grid {
-  margin-top: 1.25rem;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.news-post {
-  background: #f8faff;
-  border: 1px solid #e5ecf7;
-  border-radius: 1rem;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-}
-
-.news-post h3 {
-  margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.45;
-}
-
-.news-post p {
-  max-width: none;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.news-readmore {
-  margin-top: auto;
-  padding: 0.55rem 1rem;
-  border-radius: 0.7rem;
-  align-self: flex-start;
-  font-size: 0.9rem;
-}
-
-@media (max-width: 800px) {
-  .news-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .site-header {
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 1rem;
-  }
-
-  .menu {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .card {
-    padding: 1.5rem;
-  }
+  color:#dc2626;
 }
