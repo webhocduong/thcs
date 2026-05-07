@@ -29,12 +29,14 @@ btnLogin.addEventListener("click", async () => {
 
         if (docSnap.exists()) {
             const data = docSnap.data();
-
-            if (data.role === "admin") email {vuthanhthuycb@gmail.com}
-                message.innerText = "Bạn là ADMIN";
-            } else {
-                message.innerText = "Bạn là USER";
-            }
+if (
+    data.role === "admin" &&
+    user.email === "vuthanhthuycb@gmail.com"
+) {
+    message.innerText = "Bạn là ADMIN";
+} else {
+    message.innerText = "Bạn là USER";
+}
         } else {
             message.innerText = "Không có dữ liệu user";
         }
