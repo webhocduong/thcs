@@ -7,125 +7,115 @@ import {
 
     collection,
 
-    addDoc,
+    getDocs,
 
-    serverTimestamp
+    deleteDoc,
+
+    doc
 
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-import {
 
-    onAuthStateChanged
-
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const postsContainer =
+document.getElementById("postsContainer");
 
 
-const title =
-document.getElementById("title");
+async function loadPosts(){
 
-const content =
-document.getElementById("content");
+    const querySnapshot =
+    await getDocs(collection(db, "posts"));
 
-const imageInput =
-document.getElementById("imageInput");
-
-const postBtn =
-document.getElementById("postBtn");
-
-let currentUser = null;
+    postsContainer.innerHTML = "";
 
 
-/* CHECK LOGIN */
+    querySnapshot.forEach((docSnap)=>{
 
-onAuthStateChanged(auth, (user)=>{
+        const post =
+        docSnap.data();
 
-    if(user){
+        const div =
+        document.createElement("div");
 
-        currentUser = user;
-
-    }else{
-
-        alert("Bạn phải đăng nhập");
-
-        window.location.href = "index.html";
-    }
-});
+        div.className = "postCard";
 
 
-/* ĐĂNG BÀI */
+        div.innerHTML = `
 
-postBtn.onclick = async ()=>{
+            ${
+                post.imageUrl
 
-    if(!currentUser){
+                ?
 
-        alert("Chưa đăng nhập");
+                `<img
+                    src="${post.imageUrl}"
+                    class="postImage"
+                >`
 
-        return;
-    }
+                :
 
-    let imageUrl = "";
-
-
-    /* NẾU CÓ ẢNH */
-
-    if(imageInput.files[0]){
-
-        const file =
-        imageInput.files[0];
-
-        const formData =
-        new FormData();
-
-        formData.append("file", file);
-
-        formData.append(
-            "upload_preset",
-            "thcs_upload"
-        );
-
-
-        const response =
-        await fetch(
-
-            https://api.cloudinary.com/v1_1/dfoo4jpkz/image/upload
-            {
-                method:"POST",
-                body:formData
+                ""
             }
-        );
 
-        const data =
-        await response.json();
+            <h2>
+                ${post.title}
+            </h2>
 
-        imageUrl =
-        data.secure_url;
-    }
+            <p>
+                ${post.content}
+            </p>
+
+            <small>
+                Đăng bởi:
+                ${post.userEmail}
+            </small>
+
+            <br><br>
+
+            ${
+                auth.currentUser &&
+                auth.currentUser.uid === post.userId
+
+                ?
+
+                `<button
+                    class="deleteBtn"
+                    data-id="${docSnap.id}">
+                    Xóa bài
+                </button>`
+
+                :
+
+                ""
+            }
+
+        `;
 
 
-    /* LƯU FIREBASE */
+        postsContainer.appendChild(div);
+    });
 
-    await addDoc(
 
-        collection(db, "posts"),
+    /* XÓA BÀI */
 
-        {
+    document
+    .querySelectorAll(".deleteBtn")
 
-            title: title.value,
+    .forEach((btn)=>{
 
-            content: content.value,
+        btn.onclick = async ()=>{
 
-            imageUrl: imageUrl,
+            await deleteDoc(
 
-            userEmail: currentUser.email,
+                doc(
+                    db,
+                    "posts",
+                    btn.dataset.id
+                )
+            );
 
-            userId: currentUser.uid,
+            loadPosts();
+        };
+    });
+}
 
-            createdAt: serverTimestamp()
-
-        }
-    );
-
-    alert("Đăng bài thành công");
-
-    window.location.href = "posts.html";
-};
+loadPosts();
