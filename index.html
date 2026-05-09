@@ -56,30 +56,9 @@
 
         <span id="userEmail"></span>
 
-        <div class="dropdown">
-
-            <button class="dropbtn">
-                ☰
-            </button>
-
-            <div class="dropdown-content">
-
-                <a href="post.html">
-                    Đăng bài
-                </a>
-
-                <a href="posts.html">
-                    Bài viết
-                </a>
-
-                <a href="#"
-                   id="logoutBtn">
-                    Đăng xuất
-                </a>
-
-            </div>
-
-        </div>
+        <button id="logoutBtn">
+            Đăng xuất
+        </button>
 
     </div>
 
@@ -101,23 +80,12 @@
             Website thông báo và hoạt động học sinh
         </p>
 
-        <div class="heroButtons">
+        <a href="post.html"
+           class="heroLink">
 
-            <button
-                class="heroBtn"
-                id="goPostBtn"
-            >
-                Đăng bài ngay
-            </button>
+            Đăng bài & Xem bài viết
 
-            <button
-                class="heroBtn"
-                onclick="window.location.href='posts.html'"
-            >
-                Xem bài viết
-            </button>
-
-        </div>
+        </a>
 
     </div>
 
@@ -183,21 +151,8 @@
 
 </section>
 
-<script>
-
-document
-.getElementById("goPostBtn")
-
-.onclick = ()=>{
-
-    window.location.href = "post.html";
-};
-
-</script>
-
 <script type="module"
         src="script.js"></script>
 
 </body>
 </html>
-          
