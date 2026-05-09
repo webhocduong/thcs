@@ -556,3 +556,21 @@ loadPosts();
 
     object-fit:cover;
 }
+/* ẢNH */
+
+.postImage{
+
+    width:100%;
+
+    max-width:500px;
+
+    max-height:350px;
+
+    object-fit:cover;
+
+    display:block;
+
+    margin:0 auto 20px;
+
+    border-radius:15px;
+}
