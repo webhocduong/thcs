@@ -538,3 +538,21 @@ async function loadPosts(){
 }
 
 loadPosts();
+/* ẢNH BÀI VIẾT */
+
+.postImage{
+
+    width:100%;
+
+    max-width:500px;
+
+    height:auto;
+
+    display:block;
+
+    margin:0 auto 20px;
+
+    border-radius:15px;
+
+    object-fit:cover;
+}
