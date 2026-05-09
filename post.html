@@ -1,122 +1,153 @@
-<!DOCTYPE html>
-<html lang="vi">
+import {
+    auth,
+    db
+} from "./firebase.js";
 
-<head>
+import {
 
-    <meta charset="UTF-8">
+    collection,
 
-    <title>Đăng bài</title>
+    addDoc,
 
-    <link rel="stylesheet"
-          href="style.css">
+    serverTimestamp
 
-</head>
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-<body>
+import {
 
-<div class="postContainer">
+    onAuthStateChanged
 
-    <h1>
-        Đăng bài viết
-    </h1>
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    <input
-        type="text"
-        id="title"
-        placeholder="Tiêu đề"
-    >
 
-    <textarea
-        id="content"
-        placeholder="Nội dung"
-    ></textarea>
+const title =
+document.getElementById("title");
 
-    <button id="postBtn">
-        Đăng bài
-    </button>
+const content =
+document.getElementById("content");
 
-    <a href="index.html">
+const imageInput =
+document.getElementById("imageInput");
 
-        <button>
-            Về trang chủ
-        </button>
+const postBtn =
+document.getElementById("postBtn");
 
-    </a>
+let currentUser = null;
 
-</div>
 
-<script type="module"
-        src="post.js"></script>
+/* CHECK LOGIN */
 
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="vi">
+onAuthStateChanged(auth, (user)=>{
 
-<head>
+    if(user){
 
-    <meta charset="UTF-8">
+        currentUser = user;
 
-    <title>Bài viết</title>
+    }else{
 
-    <link rel="stylesheet"
-          href="style.css">
+        alert("Bạn phải đăng nhập");
 
-</head>
+        window.location.href = "index.html";
+    }
+});
 
-<body>
 
-<header>
+/* ĐĂNG BÀI */
 
-    <div class="logo">
-        THCS Hòa Chung
-    </div>
+postBtn.addEventListener("click", async ()=>{
 
-</header>
+    if(!currentUser){
 
-<h1 class="center">
-    Bài viết học sinh
-</h1>
+        alert("Chưa đăng nhập");
 
-<div id="postsContainer"></div>
+        return;
+    }
 
-<script type="module"
-        src="posts.js"></script>
+    if(title.value.trim() === ""){
 
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="vi">
+        alert("Nhập tiêu đề");
 
-<head>
+        return;
+    }
 
-    <meta charset="UTF-8">
+    if(content.value.trim() === ""){
 
-    <title>Bài viết</title>
+        alert("Nhập nội dung");
 
-    <link rel="stylesheet"
-          href="style.css">
+        return;
+    }
 
-</head>
+    try{
 
-<body>
+        let imageUrl = "";
 
-<header>
 
-    <div class="logo">
-        THCS Hòa Chung
-    </div>
+        /* NẾU CÓ ẢNH */
 
-</header>
+        if(imageInput.files.length > 0){
 
-<h1 class="center">
-    Bài viết học sinh
-</h1>
+            const file =
+            imageInput.files[0];
 
-<div id="postsContainer"></div>
+            const formData =
+            new FormData();
 
-<script type="module"
-        src="posts.js"></script>
+            formData.append("file", file);
 
-</body>
-</html>
+            formData.append(
+                "upload_preset",
+                "school_upload"
+            );
+
+
+            const response =
+            await fetch(
+
+                "https://api.cloudinary.com/v1_1/dfoo4jpkz/image/upload",
+
+                {
+                    method:"POST",
+                    body:formData
+                }
+            );
+
+            const data =
+            await response.json();
+
+            imageUrl =
+            data.secure_url;
+        }
+
+
+        /* LƯU FIREBASE */
+
+        await addDoc(
+
+            collection(db, "posts"),
+
+            {
+
+                title: title.value,
+
+                content: content.value,
+
+                imageUrl: imageUrl,
+
+                userEmail: currentUser.email,
+
+                userId: currentUser.uid,
+
+                createdAt: serverTimestamp()
+
+            }
+        );
+
+        alert("Đăng bài thành công");
+
+        window.location.href = "posts.html";
+
+    }catch(error){
+
+        alert(error.message);
+    }
+});
