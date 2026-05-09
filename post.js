@@ -13,6 +13,13 @@ import {
 
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+import {
+
+    onAuthStateChanged
+
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
 const title =
 document.getElementById("title");
 
@@ -22,131 +29,78 @@ document.getElementById("content");
 const postBtn =
 document.getElementById("postBtn");
 
+let currentUser = null;
+
+
+/* KIỂM TRA ĐĂNG NHẬP */
+
+onAuthStateChanged(auth, (user)=>{
+
+    if(user){
+
+        currentUser = user;
+
+    }else{
+
+        alert("Bạn phải đăng nhập");
+
+        window.location.href = "index.html";
+    }
+});
+
+
+/* ĐĂNG BÀI */
 
 postBtn.onclick = async ()=>{
 
-    const user = auth.currentUser;
+    if(!currentUser){
 
-    if(!user){
-
-        alert("Bạn phải đăng nhập");
+        alert("Chưa đăng nhập");
 
         return;
     }
 
-    await addDoc(
+    if(title.value.trim() === ""){
 
-        collection(db, "posts"),
+        alert("Nhập tiêu đề");
 
-        {
+        return;
+    }
 
-            title: title.value,
+    if(content.value.trim() === ""){
 
-            content: content.value,
+        alert("Nhập nội dung");
 
-            userEmail: user.email,
+        return;
+    }
 
-            userId: user.uid,
+    try{
 
-            createdAt: serverTimestamp()
+        await addDoc(
 
-        }
-    );
+            collection(db, "posts"),
 
-    alert("Đăng bài thành công");
+            {
 
-    window.location.href = "posts.html";
-};
-import {
-    auth,
-    db
-} from "./firebase.js";
+                title: title.value,
 
-import {
+                content: content.value,
 
-    collection,
+                userEmail: currentUser.email,
 
-    getDocs,
+                userId: currentUser.uid,
 
-    deleteDoc,
+                createdAt: serverTimestamp()
 
-    doc
-
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const postsContainer =
-document.getElementById("postsContainer");
-
-
-async function loadPosts(){
-
-    const querySnapshot =
-    await getDocs(collection(db, "posts"));
-
-    postsContainer.innerHTML = "";
-
-    querySnapshot.forEach((docSnap)=>{
-
-        const post = docSnap.data();
-
-        const div =
-        document.createElement("div");
-
-        div.className = "postCard";
-
-        div.innerHTML = `
-
-            <h2>${post.title}</h2>
-
-            <p>${post.content}</p>
-
-            <small>
-                Đăng bởi:
-                ${post.userEmail}
-            </small>
-
-            <br><br>
-
-            ${
-                auth.currentUser &&
-                auth.currentUser.uid === post.userId
-
-                ?
-
-                `<button class="deleteBtn"
-                    data-id="${docSnap.id}">
-                    Xóa bài
-                </button>`
-
-                :
-
-                ""
             }
-        `;
+        );
 
-        postsContainer.appendChild(div);
-    });
+        alert("Đăng bài thành công");
 
+        window.location.href = "posts.html";
 
-    document
-    .querySelectorAll(".deleteBtn")
+    }catch(error){
 
-    .forEach((btn)=>{
-
-        btn.onclick = async ()=>{
-
-            await deleteDoc(
-
-                doc(
-                    db,
-                    "posts",
-                    btn.dataset.id
-                )
-            );
-
-            loadPosts();
-        };
-    });
-}
-
-loadPosts();
+        alert(error.message);
+    }
+};
