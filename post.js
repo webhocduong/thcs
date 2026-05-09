@@ -1,125 +1,83 @@
-import {
-  db,
-  auth
-}
-from "./firebase.js";
+import { auth, db } from "./firebase.js";
 
 import {
-
-  collection,
-
-  addDoc,
-
-  serverTimestamp
-
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    collection,
+    addDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  onAuthStateChanged
+const postForm = document.getElementById("postForm");
 
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+onAuthStateChanged(auth, (user) => {
 
-/* INPUT */
+    if (!user) {
+        alert("Bạn phải đăng nhập!");
 
-const titleInput =
-document.getElementById("title");
-
-const contentInput =
-document.getElementById("content");
-
-const postBtn =
-document.getElementById("postBtn");
-
-const result =
-document.getElementById("result");
-
-/* KIỂM TRA LOGIN */
-
-onAuthStateChanged(
-auth,
-(user)=>{
-
-  if(!user){
-
-    alert(
-      "Bạn cần đăng nhập"
-    );
-
-    window.location.href =
-    "index.html";
-  }
+        window.location.href = "index.html";
+    }
 
 });
 
-/* ĐĂNG BÀI */
+postForm.addEventListener("submit", async (e) => {
 
-postBtn.addEventListener(
-"click",
-async ()=>{
+    e.preventDefault();
 
-  const user =
-  auth.currentUser;
+    const title = document.getElementById("title").value;
 
-  const title =
-  titleInput.value;
+    const content = document.getElementById("content").value;
 
-  const content =
-  contentInput.value;
+    const imageInput = document.getElementById("image");
 
-  if(
-    title === "" ||
-    content === ""
-  ){
+    const user = auth.currentUser;
 
-    result.innerText =
-    "Vui lòng nhập đầy đủ";
+    let imageUrl = "";
 
-    return;
-  }
+    // Upload ảnh lên Cloudinary
+    if (imageInput.files[0]) {
 
-  try{
+        const file = imageInput.files[0];
 
-    await addDoc(
+        const formData = new FormData();
 
-      collection(
-        db,
-        "bai_viet"
-      ),
+        formData.append("file", file);
 
-      {
+        formData.append("upload_preset", "thcs_upload");
 
-        title:title,
+        const response = await fetch(
+            "https://api.cloudinary.com/v1_1/dfoo4jpkz/image/upload",
+            {
+                method: "POST",
+                body: formData
+            }
+        );
 
-        content:content,
+        const data = await response.json();
 
-        userEmail:
-        user.email,
+        imageUrl = data.secure_url;
+    }
 
-        createdAt:
-        serverTimestamp()
+    // Lưu Firebase
+    await addDoc(collection(db, "posts"), {
 
-      }
+        title: title,
 
-    );
+        content: content,
 
-    result.innerText =
-    "Đăng bài thành công";
+        imageUrl: imageUrl,
 
-    titleInput.value = "";
+        userEmail: user.email,
 
-    contentInput.value = "";
+        userId: user.uid,
 
-  }
+        createdAt: new Date()
 
-  catch(error){
+    });
 
-    result.innerText =
-    error.message;
-  }
+    alert("Đăng bài thành công!");
+
+    window.location.href = "posts.html";
 
 });
