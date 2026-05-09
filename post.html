@@ -6,7 +6,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Đăng bài - THCS Hòa Chung</title>
+    <title>Bài viết - THCS Hòa Chung</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -37,54 +37,18 @@
 
     </header>
 
-    <!-- FORM ĐĂNG BÀI -->
-    <main class="post-page">
+    <!-- DANH SÁCH BÀI -->
+    <main class="posts-page">
 
-        <div class="post-box">
+        <h2 class="posts-title">
+            Bài viết học sinh
+        </h2>
 
-            <h2>Đăng bài viết</h2>
-
-            <form id="postForm">
-
-                <!-- TIÊU ĐỀ -->
-                <input
-                    type="text"
-                    id="title"
-                    placeholder="Nhập tiêu đề bài viết"
-                    required
-                >
-
-                <!-- NỘI DUNG -->
-                <textarea
-                    id="content"
-                    placeholder="Nhập nội dung bài viết"
-                    required
-                ></textarea>
-
-                <!-- ẢNH -->
-                <label class="upload-label">
-                    Chọn ảnh (không bắt buộc)
-                </label>
-
-                <input
-                    type="file"
-                    id="image"
-                    accept="image/*"
-                >
-
-                <!-- NÚT -->
-                <button type="submit" class="post-btn">
-                    Đăng bài
-                </button>
-
-            </form>
-
-        </div>
+        <div id="postsContainer"></div>
 
     </main>
 
-    <!-- SCRIPT -->
-    <script type="module" src="post.js"></script>
+    <script type="module" src="posts.js"></script>
 
 </body>
 
