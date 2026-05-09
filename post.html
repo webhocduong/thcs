@@ -2,97 +2,89 @@
 <html lang="vi">
 
 <head>
+    <meta charset="UTF-8">
 
-  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+    <title>Đăng bài - THCS Hòa Chung</title>
 
-  <title>Đăng bài</title>
-
-  <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- TOP BAR -->
+    <!-- HEADER -->
+    <header class="header">
 
-  <div class="top-bar">
+        <div class="logo-area">
 
-    📢 Đăng bài viết trường học
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_Vietnam_Education.svg"
+                class="logo"
+            >
 
-  </div>
+            <div>
+                <h1>THCS Hòa Chung</h1>
 
-  <!-- HEADER -->
+                <p>Cổng thông tin học sinh</p>
+            </div>
 
-  <header class="header">
+        </div>
 
-    <div class="header-left">
+        <a href="index.html" class="back-btn">
+            ← Trang chủ
+        </a>
 
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
-        class="logo"
-      >
+    </header>
 
-      <div>
+    <!-- FORM ĐĂNG BÀI -->
+    <main class="post-page">
 
-        <h1>THCS HÒA CHUNG</h1>
+        <div class="post-box">
 
-        <p>
-          Tạo bài viết mới
-        </p>
+            <h2>Đăng bài viết</h2>
 
-      </div>
+            <form id="postForm">
 
-    </div>
+                <!-- TIÊU ĐỀ -->
+                <input
+                    type="text"
+                    id="title"
+                    placeholder="Nhập tiêu đề bài viết"
+                    required
+                >
 
-  </header>
+                <!-- NỘI DUNG -->
+                <textarea
+                    id="content"
+                    placeholder="Nhập nội dung bài viết"
+                    required
+                ></textarea>
 
-  <!-- FORM -->
+                <!-- ẢNH -->
+                <label class="upload-label">
+                    Chọn ảnh (không bắt buộc)
+                </label>
 
-  <div class="post-wrapper">
+                <input
+                    type="file"
+                    id="image"
+                    accept="image/*"
+                >
 
-    <section class="post-box">
+                <!-- NÚT -->
+                <button type="submit" class="post-btn">
+                    Đăng bài
+                </button>
 
-      <h2>
-        Tạo bài viết
-      </h2>
+            </form>
 
-      <input
-        type="text"
-        id="title"
-        placeholder="Nhập tiêu đề bài viết"
-      >
+        </div>
 
-      <textarea
-        id="content"
-        placeholder="Nhập nội dung bài viết"
-      ></textarea>
+    </main>
 
-      <button id="postBtn">
-        Đăng bài
-      </button>
-
-      <button
-        class="home-btn"
-        onclick="window.location.href='index.html'"
-      >
-        Quay về trang chủ
-      </button>
-
-      <p id="result"></p>
-
-    </section>
-
-  </div>
-
-  <script
-    type="module"
-    src="post.js"
-  ></script>
+    <!-- SCRIPT -->
+    <script type="module" src="post.js"></script>
 
 </body>
 
