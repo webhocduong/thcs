@@ -186,9 +186,13 @@ postBtn.onclick = async ()=>{
         let imageUrl = "";
 
 
-        /* IMAGE */
+        /* NẾU CÓ ẢNH */
 
-        if(imageInput.files.length > 0){
+        if(
+            imageInput &&
+            imageInput.files &&
+            imageInput.files.length > 0
+        ){
 
             const file =
             imageInput.files[0];
@@ -204,26 +208,47 @@ postBtn.onclick = async ()=>{
             );
 
 
-            const response =
-            await fetch(
+            try{
 
-                "https://api.cloudinary.com/v1_1/dfoo4jpkz/image/upload",
+                const response =
+                await fetch(
 
-                {
-                    method:"POST",
-                    body:formData
+                    "https://api.cloudinary.com/v1_1/dfoo4jpkz/image/upload",
+
+                    {
+                        method:"POST",
+                        body:formData
+                    }
+                );
+
+                const data =
+                await response.json();
+
+
+                if(data.secure_url){
+
+                    imageUrl =
+                    data.secure_url;
+
+                }else{
+
+                    imageUrl = "";
+
+                    console.log(data);
+
+                    alert("Upload ảnh lỗi");
                 }
-            );
 
-            const data =
-            await response.json();
+            }catch(err){
 
-            imageUrl =
-            data.secure_url;
+                console.log(err);
+
+                imageUrl = "";
+            }
         }
 
 
-        /* SAVE */
+        /* SAVE FIREBASE */
 
         await addDoc(
 
@@ -235,7 +260,7 @@ postBtn.onclick = async ()=>{
 
                 content:content.value,
 
-                imageUrl:imageUrl,
+                imageUrl:imageUrl || "",
 
                 userEmail:currentUser.email,
 
@@ -261,5 +286,7 @@ postBtn.onclick = async ()=>{
     }catch(error){
 
         alert(error.message);
+
+        console.log(error);
     }
 };
