@@ -44,13 +44,15 @@ document.getElementById("postsContainer");
 let currentUser = null;
 
 
-/* CHECK LOGIN */
+/* LOGIN */
 
-onAuthStateChanged(auth, (user)=>{
+onAuthStateChanged(auth, async (user)=>{
 
     if(user){
 
         currentUser = user;
+
+        loadPosts();
 
     }else{
 
@@ -61,7 +63,7 @@ onAuthStateChanged(auth, (user)=>{
 });
 
 
-/* LOAD BÀI */
+/* LOAD POSTS */
 
 async function loadPosts(){
 
@@ -133,12 +135,11 @@ async function loadPosts(){
 
         `;
 
-
         postsContainer.appendChild(div);
     });
 
 
-    /* XÓA */
+    /* DELETE */
 
     document
     .querySelectorAll(".deleteBtn")
@@ -162,16 +163,9 @@ async function loadPosts(){
 }
 
 
-/* ĐĂNG BÀI */
+/* POST */
 
-postBtn.addEventListener("click", async ()=>{
-
-    if(!currentUser){
-
-        alert("Chưa đăng nhập");
-
-        return;
-    }
+postBtn.onclick = async ()=>{
 
     if(title.value.trim() === ""){
 
@@ -192,7 +186,7 @@ postBtn.addEventListener("click", async ()=>{
         let imageUrl = "";
 
 
-        /* UPLOAD ẢNH */
+        /* IMAGE */
 
         if(imageInput.files.length > 0){
 
@@ -229,7 +223,7 @@ postBtn.addEventListener("click", async ()=>{
         }
 
 
-        /* LƯU FIREBASE */
+        /* SAVE */
 
         await addDoc(
 
@@ -237,22 +231,20 @@ postBtn.addEventListener("click", async ()=>{
 
             {
 
-                title: title.value,
+                title:title.value,
 
-                content: content.value,
+                content:content.value,
 
-                imageUrl: imageUrl,
+                imageUrl:imageUrl,
 
-                userEmail: currentUser.email,
+                userEmail:currentUser.email,
 
-                userId: currentUser.uid,
+                userId:currentUser.uid,
 
-                createdAt: serverTimestamp()
+                createdAt:serverTimestamp()
 
             }
         );
-
-        alert("Đăng bài thành công");
 
 
         title.value = "";
@@ -262,13 +254,12 @@ postBtn.addEventListener("click", async ()=>{
         imageInput.value = "";
 
 
+        alert("Đăng bài thành công");
+
         loadPosts();
 
     }catch(error){
 
         alert(error.message);
     }
-});
-
-
-loadPosts();
+};
