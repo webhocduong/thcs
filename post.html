@@ -2,53 +2,36 @@
 <html lang="vi">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Bài viết - THCS Hòa Chung</title>
+    <title>Đăng bài</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    <header class="header">
+    <div class="post-form">
 
-        <div class="logo-area">
+        <h1>Đăng bài viết</h1>
 
-            <img
-                src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_Vietnam_Education.svg"
-                class="logo"
-            >
+        <input type="text" id="title" placeholder="Tiêu đề">
 
-            <div>
-                <h1>THCS Hòa Chung</h1>
+        <textarea id="content" placeholder="Nội dung"></textarea>
 
-                <p>Cổng thông tin học sinh</p>
-            </div>
+        <input type="file" id="image">
 
-        </div>
+        <button id="postBtn">Đăng bài</button>
 
-        <a href="index.html" class="back-btn">
-            ← Trang chủ
-        </a>
+        <a href="index.html">← Trang chủ</a>
 
-    </header>
+    </div>
 
-    <!-- DANH SÁCH BÀI -->
-    <main class="posts-page">
-
-        <h2 class="posts-title">
-            Bài viết học sinh
-        </h2>
-
-        <div id="postsContainer"></div>
-
-    </main>
-
-    <script type="module" src="posts.js"></script>
+    <script type="module" src="post.js"></script>
 
 </body>
 
