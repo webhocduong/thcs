@@ -5,8 +5,6 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Đăng bài</title>
 
     <link rel="stylesheet" href="style.css">
@@ -15,24 +13,38 @@
 
 <body>
 
-    <div class="post-form">
+<div class="postContainer">
 
-        <h1>Đăng bài viết</h1>
+    <h1>
+        Đăng bài viết
+    </h1>
 
-        <input type="text" id="title" placeholder="Tiêu đề">
+    <input
+        type="text"
+        id="title"
+        placeholder="Tiêu đề"
+    >
 
-        <textarea id="content" placeholder="Nội dung"></textarea>
+    <textarea
+        id="content"
+        placeholder="Nội dung"
+    ></textarea>
 
-        <input type="file" id="image">
+    <button id="postBtn">
+        Đăng bài
+    </button>
 
-        <button id="postBtn">Đăng bài</button>
+    <a href="index.html">
 
-        <a href="index.html">← Trang chủ</a>
+        <button>
+            Về trang chủ
+        </button>
 
-    </div>
+    </a>
 
-    <script type="module" src="post.js"></script>
+</div>
+
+<script type="module" src="post.js"></script>
 
 </body>
-
 </html>
