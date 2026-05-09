@@ -5,8 +5,8 @@
 }
 
 body{
-    font-family:Arial;
-    background:#eef3ff;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f6fb;
 }
 
 /* HEADER */
@@ -14,22 +14,23 @@ body{
 header{
 
     width:100%;
-    height:90px;
 
     background:#0d47a1;
 
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
 
-    padding:0 40px;
+    padding:15px 40px;
 }
 
 .logo{
 
     color:white;
 
-    font-size:34px;
+    font-size:32px;
 
     font-weight:bold;
 }
@@ -45,13 +46,15 @@ header{
 
 #guestButtons input{
 
+    width:180px;
+
     padding:12px;
 
     border:none;
 
     border-radius:10px;
 
-    width:180px;
+    outline:none;
 }
 
 #guestButtons button{
@@ -125,6 +128,8 @@ header{
     border-radius:10px;
 
     overflow:hidden;
+
+    box-shadow:0 5px 10px rgba(0,0,0,0.1);
 }
 
 .dropdown-content a{
@@ -138,6 +143,11 @@ header{
     color:black;
 }
 
+.dropdown-content a:hover{
+
+    background:#f2f2f2;
+}
+
 .dropdown:hover .dropdown-content{
 
     display:block;
@@ -149,29 +159,9 @@ header{
 
     width:100%;
 
-    height:650px;
+    padding:80px 20px;
 
-    background:
-
-    linear-gradient(
-        rgba(0,0,0,0.4),
-        rgba(0,0,0,0.4)
-    ),
-
-    url("https://images.unsplash.com/photo-1509062522246-3755977927d7");
-
-    background-size:cover;
-
-    background-position:center;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-}
-
-.overlay{
+    background:#1976d2;
 
     text-align:center;
 
@@ -180,31 +170,33 @@ header{
 
 .overlay h1{
 
-    font-size:70px;
+    font-size:55px;
 
     margin-bottom:20px;
 }
 
 .overlay p{
 
-    font-size:28px;
+    font-size:24px;
 
     margin-bottom:30px;
 }
 
 .heroBtn{
 
-    padding:18px 35px;
+    padding:16px 30px;
 
     border:none;
 
-    border-radius:15px;
+    border-radius:12px;
 
-    background:#1e88e5;
+    background:white;
 
-    color:white;
+    color:#1976d2;
 
     font-size:20px;
+
+    font-weight:bold;
 
     cursor:pointer;
 }
@@ -217,28 +209,28 @@ header{
 
     justify-content:center;
 
-    gap:30px;
+    gap:25px;
 
-    margin-top:-60px;
+    margin-top:40px;
 }
 
 .menuBox{
 
-    width:250px;
+    width:230px;
 
     background:white;
 
-    padding:35px;
+    padding:30px;
 
     text-align:center;
 
-    border-radius:25px;
+    border-radius:20px;
 
-    font-size:30px;
+    font-size:28px;
 
     font-weight:bold;
 
-    box-shadow:0 5px 15px rgba(0,0,0,0.15);
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
 /* NEWS */
@@ -247,7 +239,7 @@ header{
 
     width:90%;
 
-    margin:60px auto;
+    margin:50px auto;
 
     display:grid;
 
@@ -260,16 +252,16 @@ header{
 
     padding:35px;
 
-    border-radius:25px;
+    border-radius:20px;
 
     box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
 .newsCard h2{
 
-    font-size:40px;
-
     color:#0d47a1;
+
+    font-size:35px;
 
     margin-bottom:20px;
 }
@@ -287,7 +279,7 @@ header{
 
     width:600px;
 
-    margin:60px auto;
+    margin:50px auto;
 
     background:white;
 
@@ -300,6 +292,8 @@ header{
     flex-direction:column;
 
     gap:20px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
 .postContainer h1{
@@ -338,7 +332,7 @@ header{
 
     border-radius:12px;
 
-    background:#1e88e5;
+    background:#1976d2;
 
     color:white;
 
@@ -370,7 +364,7 @@ header{
 
     padding:35px;
 
-    border-radius:25px;
+    border-radius:20px;
 
     box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
@@ -379,7 +373,7 @@ header{
 
     color:#0d47a1;
 
-    font-size:38px;
+    font-size:35px;
 
     margin-bottom:20px;
 }
@@ -392,6 +386,13 @@ header{
 
     margin-bottom:20px;
 }
+
+.postCard small{
+
+    color:#666;
+}
+
+/* DELETE */
 
 .deleteBtn{
 
