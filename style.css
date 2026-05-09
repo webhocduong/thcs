@@ -604,3 +604,41 @@ header{
         width:100%;
     }
 }
+/* FIX KHÔNG BẤM ĐƯỢC */
+
+header{
+    z-index:99999;
+}
+
+.hero{
+    position:relative;
+    z-index:1;
+}
+
+.overlay{
+    position:relative;
+    z-index:2;
+}
+
+button{
+    cursor:pointer;
+    pointer-events:auto;
+}
+
+a{
+    pointer-events:auto;
+}
+
+/* FIX INPUT */
+
+input,
+textarea{
+    position:relative;
+    z-index:5;
+}
+
+/* FIX MENU */
+
+.dropdown-content{
+    z-index:999999;
+}
