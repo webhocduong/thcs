@@ -204,7 +204,7 @@ postBtn.onclick = async ()=>{
 
             formData.append(
                 "upload_preset",
-                "thcs_upload"
+                "school_upload"
             );
 
 
