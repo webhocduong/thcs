@@ -87,7 +87,7 @@ loginBtn.onclick = async () => {
 };
 
 
-// KIỂM TRA LOGIN
+// CHECK LOGIN
 
 onAuthStateChanged(auth, (user)=>{
 
@@ -108,7 +108,7 @@ onAuthStateChanged(auth, (user)=>{
 });
 
 
-// ĐĂNG XUẤT
+// LOGOUT
 
 logoutBtn.onclick = async ()=>{
 
