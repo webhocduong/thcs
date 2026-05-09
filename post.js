@@ -9,6 +9,12 @@ import {
 
     addDoc,
 
+    getDocs,
+
+    deleteDoc,
+
+    doc,
+
     serverTimestamp
 
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -32,6 +38,9 @@ document.getElementById("imageInput");
 const postBtn =
 document.getElementById("postBtn");
 
+const postsContainer =
+document.getElementById("postsContainer");
+
 let currentUser = null;
 
 
@@ -50,6 +59,107 @@ onAuthStateChanged(auth, (user)=>{
         window.location.href = "index.html";
     }
 });
+
+
+/* LOAD BÀI */
+
+async function loadPosts(){
+
+    const querySnapshot =
+    await getDocs(collection(db, "posts"));
+
+    postsContainer.innerHTML = "";
+
+
+    querySnapshot.forEach((docSnap)=>{
+
+        const post =
+        docSnap.data();
+
+        const div =
+        document.createElement("div");
+
+        div.className = "postCard";
+
+
+        div.innerHTML = `
+
+            ${
+                post.imageUrl
+
+                ?
+
+                `<img
+                    src="${post.imageUrl}"
+                    class="postImage"
+                >`
+
+                :
+
+                ""
+            }
+
+            <h2>
+                ${post.title}
+            </h2>
+
+            <p>
+                ${post.content}
+            </p>
+
+            <small>
+                Đăng bởi:
+                ${post.userEmail}
+            </small>
+
+            <br><br>
+
+            ${
+                currentUser &&
+                currentUser.uid === post.userId
+
+                ?
+
+                `<button
+                    class="deleteBtn"
+                    data-id="${docSnap.id}">
+                    Xóa bài
+                </button>`
+
+                :
+
+                ""
+            }
+
+        `;
+
+
+        postsContainer.appendChild(div);
+    });
+
+
+    /* XÓA */
+
+    document
+    .querySelectorAll(".deleteBtn")
+
+    .forEach((btn)=>{
+
+        btn.onclick = async ()=>{
+
+            await deleteDoc(
+
+                doc(
+                    db,
+                    "posts",
+                    btn.dataset.id
+                )
+            );
+
+            loadPosts();
+        };
+    });
+}
 
 
 /* ĐĂNG BÀI */
@@ -84,7 +194,7 @@ postBtn.addEventListener("click", async ()=>{
 
         /* UPLOAD ẢNH */
 
-        if(imageInput.files[0]){
+        if(imageInput.files.length > 0){
 
             const file =
             imageInput.files[0];
@@ -144,10 +254,21 @@ postBtn.addEventListener("click", async ()=>{
 
         alert("Đăng bài thành công");
 
-        window.location.href = "posts.html";
+
+        title.value = "";
+
+        content.value = "";
+
+        imageInput.value = "";
+
+
+        loadPosts();
 
     }catch(error){
 
         alert(error.message);
     }
 });
+
+
+loadPosts();
