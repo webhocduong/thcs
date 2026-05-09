@@ -1,94 +1,26 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>THCS Hòa Chung</title>
 
   <link rel="stylesheet" href="style.css">
-
 </head>
-
 <body>
 
-  <!-- TOP BAR -->
+<!-- HEADER -->
 
-  <div class="top-bar">
+<header>
 
-    📢 Chào mừng đến với website Trường THCS Hòa Chung
-
+  <div class="logo">
+    THCS Hòa Chung
   </div>
 
-  <!-- HEADER -->
+  <!-- KHU ĐĂNG NHẬP -->
 
-  <header class="header">
-
-    <div class="header-left">
-
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
-        class="logo"
-      >
-
-      <div>
-
-        <h1>TRƯỜNG THCS HÒA CHUNG</h1>
-
-        <p>Học tập • Kỷ luật • Sáng tạo</p>
-
-      </div>
-
-    </div>
-
-  </header>
-
-  <!-- MENU -->
-
-  <nav class="menu">
-    <nav class="menu">
-
- <button
-onclick="window.location.href='index.html'"
->
-Trang chủ
-</button>
-
-<button
-onclick="window.location.href='news.html'"
->
-Bài viết
-</button>
-  <button>
-    Thông báo
-  </button>
-
-  <button>
-    Hoạt động
-  </button>
-
-  <button>
-    Học tập
-  </button>
-
-  <button
-  onclick="window.location.href='post.html'"
-  >
-    Đăng bài
-  </button>
-
-</nav>
-  <!-- LOGIN -->
-<!-- USER BAR -->
-
-<div class="user-bar">
-
-  <!-- CHƯA LOGIN -->
-
-  <div id="authSection">
+  <div id="guestButtons">
 
     <input
       type="email"
@@ -112,108 +44,123 @@ Bài viết
 
   </div>
 
-  <!-- ĐÃ LOGIN -->
+  <!-- USER -->
 
-  <div
-    id="userSection"
-    style="display:none;"
-  >
+  <div id="userMenu" style="display:none;">
 
-    <button id="userBtn">
+    <span id="userEmail"></span>
 
-      👤
-      <span id="userEmail"></span>
+    <div class="dropdown">
 
-    </button>
-
-    <!-- MENU -->
-
-    <div
-      id="dropdownMenu"
-      class="dropdown-menu"
-    >
-
-      <button id="profileBtn">
-        Hồ sơ
+      <button class="dropbtn">
+        ☰
       </button>
 
-      <button
-      onclick="window.location.href='myposts.html'"
-      >
-        Bài đã đăng
-      </button>
+      <div class="dropdown-content">
 
-      <button id="logoutBtn">
-        Đăng xuất
-      </button>
+        <a href="posts.html">
+          Bài đã đăng
+        </a>
+
+        <a href="post.html">
+          Đăng bài
+        </a>
+
+        <a href="#" id="logoutBtn">
+          Đăng xuất
+        </a>
+
+      </div>
 
     </div>
 
   </div>
 
-</div>
+</header>
 
-<p id="result"></p>
-  <!-- NEWS -->
+<!-- HERO -->
 
-  <section class="news-container">
+<section class="hero">
 
-    <div class="news-card">
+  <div class="overlay">
 
-      <h2>
-        Thông báo lịch họp phụ huynh học kỳ II
-      </h2>
+    <h1>
+      Chào mừng đến với
+      <br>
+      THCS Hòa Chung
+    </h1>
 
-      <p>
-        Nhà trường sẽ tổ chức họp phụ huynh
-        vào sáng Chủ nhật tuần này để cập nhật
-        kết quả học tập và kế hoạch cuối kỳ.
-      </p>
+    <p>
+      Website thông báo, học tập và hoạt động học sinh.
+    </p>
 
-      <button>
-        Xem thêm
+    <a href="post.html">
+      <button class="heroBtn">
+        Đăng bài ngay
       </button>
+    </a>
 
-    </div>
+  </div>
 
-    <div class="news-card">
+</section>
 
-      <h2>
-        Ngày hội thể thao cấp trường 2026
-      </h2>
+<!-- MENU -->
 
-      <p>
-        Các lớp đã sẵn sàng cho chuỗi hoạt động
-        bóng đá, kéo co và chạy tiếp sức.
-      </p>
+<section class="menu">
 
-      <button>
-        Xem thêm
-      </button>
+  <div class="menuBox">
+    Thông báo
+  </div>
 
-    </div>
+  <div class="menuBox">
+    Hoạt động
+  </div>
 
-    <div class="news-card">
+  <div class="menuBox">
+    Học tập
+  </div>
 
-      <h2>
-        Tăng cường ôn tập cuối kỳ
-      </h2>
+</section>
 
-      <p>
-        Giáo viên các bộ môn sẽ mở thêm
-        các buổi ôn tập miễn phí cho học sinh.
-      </p>
+<!-- BÀI -->
 
-      <button>
-        Xem thêm
-      </button>
+<section class="news">
 
-    </div>
+  <div class="newsCard">
 
-  </section>
+    <h2>
+      Thông báo lịch họp phụ huynh học kỳ II
+    </h2>
 
-  <script type="module" src="script.js"></script>
+    <p>
+      Nhà trường sẽ tổ chức họp phụ huynh vào sáng Chủ nhật tuần này để cập nhật kết quả học tập và kế hoạch cuối kỳ.
+    </p>
+
+    <button>
+      Xem thêm
+    </button>
+
+  </div>
+
+  <div class="newsCard">
+
+    <h2>
+      Ngày hội thể thao cấp trường 2026
+    </h2>
+
+    <p>
+      Các lớp đã sẵn sàng cho chuỗi hoạt động bóng đá, kéo co và chạy tiếp sức.
+    </p>
+
+    <button>
+      Xem thêm
+    </button>
+
+  </div>
+
+</section>
+
+<script type="module" src="script.js"></script>
 
 </body>
-
 </html>
