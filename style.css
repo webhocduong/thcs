@@ -408,3 +408,28 @@ header{
 
     cursor:pointer;
 }
+/* FIX NÚT */
+
+button{
+    cursor:pointer;
+    position:relative;
+    z-index:10;
+}
+
+.heroBtn{
+    position:relative;
+    z-index:20;
+}
+
+.overlay{
+    position:relative;
+    z-index:20;
+}
+
+.hero{
+    position:relative;
+}
+
+a{
+    text-decoration:none;
+}
