@@ -1,4 +1,7 @@
-import { auth, db } from "./firebase.js";
+import {
+    auth,
+    db
+} from "./firebase.js";
 
 import {
     collection,
@@ -6,74 +9,45 @@ import {
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const CLOUD_NAME = "dfoo4jpkz";
+const title =
+document.getElementById("title");
 
-const UPLOAD_PRESET = "thcs_upload";
+const content =
+document.getElementById("content");
 
-const title = document.getElementById("title");
-
-const content = document.getElementById("content");
-
-const image = document.getElementById("image");
-
-const postBtn = document.getElementById("postBtn");
+const postBtn =
+document.getElementById("postBtn");
 
 
-postBtn.onclick = async () => {
+postBtn.onclick = async ()=>{
 
     const user = auth.currentUser;
 
-    if (!user) {
+    if(!user){
 
-        alert("Phải đăng nhập");
+        alert("Bạn phải đăng nhập");
 
         return;
     }
 
-    let imageUrl = "";
+    await addDoc(
 
+        collection(db, "posts"),
 
-    // UPLOAD ẢNH
+        {
 
-    if (image.files[0]) {
+            title: title.value,
 
-        const file = image.files[0];
+            content: content.value,
 
-        const formData = new FormData();
+            userEmail: user.email,
 
-        formData.append("file", file);
+            userId: user.uid,
 
-        formData.append("upload_preset", UPLOAD_PRESET);
+            createdAt: serverTimestamp()
 
-        const response = await fetch(
-
-            `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-            {
-                method: "POST",
-                body: formData
-            }
-        );
-
-        const data = await response.json();
-
-        imageUrl = data.secure_url;
-    }
-
-
-    // LƯU FIREBASE
-
-    await addDoc(collection(db, "posts"), {
-
-        title: title.value,
-
-        content: content.value,
-
-        image: imageUrl,
-
-        userEmail: user.email,
-
-        createdAt: serverTimestamp()
-    });
+        }
+    );
 
     alert("Đăng bài thành công");
 
