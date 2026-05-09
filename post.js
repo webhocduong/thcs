@@ -1,83 +1,117 @@
-import { auth, db } from "./firebase.js";
+import { db, auth } from "./firebase.js";
 
 import {
     collection,
-    addDoc
+    getDocs,
+    deleteDoc,
+    doc,
+    query,
+    orderBy
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 import {
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-const postForm = document.getElementById("postForm");
+const postsContainer = document.getElementById("postsContainer");
 
+let currentUser = null;
+
+// Kiểm tra đăng nhập
 onAuthStateChanged(auth, (user) => {
 
-    if (!user) {
-        alert("Bạn phải đăng nhập!");
+    currentUser = user;
 
-        window.location.href = "index.html";
-    }
+    loadPosts();
 
 });
 
-postForm.addEventListener("submit", async (e) => {
+// Load bài viết
+async function loadPosts() {
 
-    e.preventDefault();
+    postsContainer.innerHTML = "Đang tải bài viết...";
 
-    const title = document.getElementById("title").value;
+    const q = query(
+        collection(db, "posts"),
+        orderBy("createdAt", "desc")
+    );
 
-    const content = document.getElementById("content").value;
+    const querySnapshot = await getDocs(q);
 
-    const imageInput = document.getElementById("image");
+    postsContainer.innerHTML = "";
 
-    const user = auth.currentUser;
+    querySnapshot.forEach((docSnap) => {
 
-    let imageUrl = "";
+        const post = docSnap.data();
 
-    // Upload ảnh lên Cloudinary
-    if (imageInput.files[0]) {
+        const postId = docSnap.id;
 
-        const file = imageInput.files[0];
+        const postDiv = document.createElement("div");
 
-        const formData = new FormData();
+        postDiv.classList.add("post-card");
 
-        formData.append("file", file);
+        postDiv.innerHTML = `
 
-        formData.append("upload_preset", "thcs_upload");
+            <h2>${post.title}</h2>
 
-        const response = await fetch(
-            "https://api.cloudinary.com/v1_1/dfoo4jpkz/image/upload",
-            {
-                method: "POST",
-                body: formData
+            <p>${post.content}</p>
+
+            ${
+                post.imageUrl
+                ? `<img src="${post.imageUrl}" class="post-image">`
+                : ""
             }
-        );
 
-        const data = await response.json();
+            <small>
+                Đăng bởi: ${post.userEmail}
+            </small>
 
-        imageUrl = data.secure_url;
-    }
+            <br><br>
 
-    // Lưu Firebase
-    await addDoc(collection(db, "posts"), {
+            ${
+                currentUser &&
+                currentUser.uid === post.userId
 
-        title: title,
+                ?
 
-        content: content,
+                `<button class="delete-btn" data-id="${postId}">
+                    Xóa bài
+                </button>`
 
-        imageUrl: imageUrl,
+                :
 
-        userEmail: user.email,
+                ""
+            }
 
-        userId: user.uid,
+        `;
 
-        createdAt: new Date()
+        postsContainer.appendChild(postDiv);
 
     });
 
-    alert("Đăng bài thành công!");
+    // Nút xóa
+    const deleteButtons = document.querySelectorAll(".delete-btn");
 
-    window.location.href = "posts.html";
+    deleteButtons.forEach((button) => {
 
-});
+        button.addEventListener("click", async () => {
+
+            const postId = button.dataset.id;
+
+            const confirmDelete = confirm(
+                "Bạn có chắc muốn xóa bài viết?"
+            );
+
+            if (!confirmDelete) return;
+
+            await deleteDoc(doc(db, "posts", postId));
+
+            alert("Đã xóa bài viết!");
+
+            loadPosts();
+
+        });
+
+    });
+
+}
