@@ -101,12 +101,23 @@
             Website thông báo và hoạt động học sinh
         </p>
 
-       <button
-    class="heroBtn"
-    onclick="window.location.href='post.html'"
->
-    Đăng bài ngay
-</button>
+        <div class="heroButtons">
+
+            <button
+                class="heroBtn"
+                id="goPostBtn"
+            >
+                Đăng bài ngay
+            </button>
+
+            <button
+                class="heroBtn"
+                onclick="window.location.href='posts.html'"
+            >
+                Xem bài viết
+            </button>
+
+        </div>
 
     </div>
 
@@ -117,19 +128,20 @@
 <section class="menu">
 
     <div class="menuBox">
-        Thông báo
+        📢 Thông báo
     </div>
 
     <div class="menuBox">
-        Hoạt động
+        🏆 Hoạt động
     </div>
 
     <div class="menuBox">
-        Học tập
+        📚 Học tập
     </div>
 
 </section>
-<!-- THÔNG BÁO -->
+
+<!-- NEWS -->
 
 <section class="news">
 
@@ -140,7 +152,7 @@
         </h2>
 
         <p>
-            Nhà trường sẽ tổ chức họp phụ huynh học kỳ II vào sáng Chủ nhật tuần này tại các lớp học.
+            Nhà trường sẽ tổ chức họp phụ huynh học kỳ II vào cuối tuần này.
         </p>
 
     </div>
@@ -152,7 +164,7 @@
         </h2>
 
         <p>
-            Giải bóng đá học sinh THCS Hòa Chung sẽ bắt đầu từ ngày 20 tháng này.
+            Giải bóng đá học sinh THCS Hòa Chung bắt đầu từ ngày 20 tháng này.
         </p>
 
     </div>
@@ -160,47 +172,32 @@
     <div class="newsCard">
 
         <h2>
-            🎉 Văn nghệ chào mừng
+            🎉 Văn nghệ cuối năm
         </h2>
 
         <p>
-            Các lớp đang chuẩn bị tiết mục văn nghệ cho lễ tổng kết cuối năm học.
+            Các lớp đang chuẩn bị tiết mục văn nghệ cho lễ tổng kết năm học.
         </p>
 
     </div>
 
 </section>
 
-<!-- BÀI VIẾT -->
+<script>
 
-<section class="news">
+document
+.getElementById("goPostBtn")
 
-    <div class="newsCard">
+.onclick = ()=>{
 
-        <h2>
-            ✍️ Bài viết học sinh
-        </h2>
+    window.location.href = "post.html";
+};
 
-        <p>
-            Xem các bài viết mới nhất được đăng bởi học sinh và giáo viên.
-        </p>
-
-        <a href="posts.html">
-
-            <button class="heroBtn">
-                Xem bài viết
-            </button>
-
-        </a>
-
-    </div>
-
-</section>
+</script>
 
 <script type="module"
         src="script.js"></script>
 
 </body>
 </html>
-
           
