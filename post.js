@@ -26,13 +26,16 @@ document.getElementById("title");
 const content =
 document.getElementById("content");
 
+const imageInput =
+document.getElementById("imageInput");
+
 const postBtn =
 document.getElementById("postBtn");
 
 let currentUser = null;
 
 
-/* KIỂM TRA ĐĂNG NHẬP */
+/* CHECK LOGIN */
 
 onAuthStateChanged(auth, (user)=>{
 
@@ -60,47 +63,69 @@ postBtn.onclick = async ()=>{
         return;
     }
 
-    if(title.value.trim() === ""){
+    let imageUrl = "";
 
-        alert("Nhập tiêu đề");
 
-        return;
-    }
+    /* NẾU CÓ ẢNH */
 
-    if(content.value.trim() === ""){
+    if(imageInput.files[0]){
 
-        alert("Nhập nội dung");
+        const file =
+        imageInput.files[0];
 
-        return;
-    }
+        const formData =
+        new FormData();
 
-    try{
+        formData.append("file", file);
 
-        await addDoc(
+        formData.append(
+            "upload_preset",
+            "thcs_upload"
+        );
 
-            collection(db, "posts"),
 
+        const response =
+        await fetch(
+
+            https://api.cloudinary.com/v1_1/dfoo4jpkz/image/upload
             {
-
-                title: title.value,
-
-                content: content.value,
-
-                userEmail: currentUser.email,
-
-                userId: currentUser.uid,
-
-                createdAt: serverTimestamp()
-
+                method:"POST",
+                body:formData
             }
         );
 
-        alert("Đăng bài thành công");
+        const data =
+        await response.json();
 
-        window.location.href = "posts.html";
-
-    }catch(error){
-
-        alert(error.message);
+        imageUrl =
+        data.secure_url;
     }
+
+
+    /* LƯU FIREBASE */
+
+    await addDoc(
+
+        collection(db, "posts"),
+
+        {
+
+            title: title.value,
+
+            content: content.value,
+
+            imageUrl: imageUrl,
+
+            userEmail: currentUser.email,
+
+            userId: currentUser.uid,
+
+            createdAt: serverTimestamp()
+
+        }
+    );
+
+    alert("Đăng bài thành công");
+
+    window.location.href = "posts.html";
 };
