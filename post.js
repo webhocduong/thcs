@@ -204,7 +204,7 @@ postBtn.onclick = async ()=>{
 
             formData.append(
                 "upload_preset",
-                "school_upload"
+                "thcs_upload"
             );
 
 
@@ -236,7 +236,7 @@ postBtn.onclick = async ()=>{
 
                     console.log(data);
 
-                    alert("Upload ảnh lỗi");
+                   alert(JSON.stringify(data));
                 }
 
             }catch(err){
