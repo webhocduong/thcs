@@ -612,3 +612,76 @@ loadPosts();
 
     margin-right:15px;
 }
+/* NÚT ĐĂNG BÀI NGAY */
+
+.heroLink{
+
+    display:inline-block;
+
+    background:#1976d2;
+
+    color:white;
+
+    padding:16px 30px;
+
+    border-radius:15px;
+
+    text-decoration:none;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    margin-top:20px;
+
+    transition:0.3s;
+}
+
+.heroLink:hover{
+
+    background:#0d47a1;
+}
+
+
+/* KHUNG BÀI VIẾT */
+
+.postCard{
+
+    background:white;
+
+    border:4px solid #1976d2;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    margin:30px auto;
+
+    width:90%;
+
+    max-width:800px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+
+/* KHUNG ĐĂNG BÀI */
+
+.postContainer{
+
+    background:white;
+
+    border:4px solid #1976d2;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    width:90%;
+
+    max-width:700px;
+
+    margin:40px auto;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
