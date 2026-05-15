@@ -42,7 +42,8 @@ const postsContainer =
 document.getElementById("postsContainer");
 
 let currentUser = null;
-
+const adminEmail =
+"vuthanhthuycb@gmail.";
 
 /* LOGIN */
 
@@ -117,8 +118,12 @@ async function loadPosts(){
             <br><br>
 
             ${
-                currentUser &&
-                currentUser.uid === post.userId
+                currentUser && (
+
+    currentUser.uid === post.userId ||
+
+    currentUser.email === adminEmail
+)
 
                 ?
 
