@@ -26,6 +26,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
+/* ADMIN EMAIL */
+
+const adminEmail =
+"vuthanhthuycb@gmail.com";
+
+
+/* ELEMENTS */
+
 const title =
 document.getElementById("title");
 
@@ -41,11 +49,11 @@ document.getElementById("postBtn");
 const postsContainer =
 document.getElementById("postsContainer");
 
-let currentUser = null;
-const adminEmail =
-"vuthanhthuycb@gmail.";
 
-/* LOGIN */
+let currentUser = null;
+
+
+/* CHECK LOGIN */
 
 onAuthStateChanged(auth, async (user)=>{
 
@@ -68,10 +76,11 @@ onAuthStateChanged(auth, async (user)=>{
 
 async function loadPosts(){
 
+    postsContainer.innerHTML = "";
+
+
     const querySnapshot =
     await getDocs(collection(db, "posts"));
-
-    postsContainer.innerHTML = "";
 
 
     querySnapshot.forEach((docSnap)=>{
@@ -79,10 +88,13 @@ async function loadPosts(){
         const post =
         docSnap.data();
 
+
         const div =
         document.createElement("div");
 
-        div.className = "postCard";
+
+        div.className =
+        "postCard";
 
 
         div.innerHTML = `
@@ -111,8 +123,25 @@ async function loadPosts(){
             </p>
 
             <small>
+
                 Đăng bởi:
+
                 ${post.userEmail}
+
+                ${
+                    post.userEmail === adminEmail
+
+                    ?
+
+                    `<span class="adminTag">
+                        ADMIN
+                    </span>`
+
+                    :
+
+                    ""
+                }
+
             </small>
 
             <br><br>
@@ -120,10 +149,10 @@ async function loadPosts(){
             ${
                 currentUser && (
 
-    currentUser.uid === post.userId ||
+                    currentUser.uid === post.userId ||
 
-    currentUser.email === adminEmail
-)
+                    currentUser.email === adminEmail
+                )
 
                 ?
 
@@ -140,11 +169,12 @@ async function loadPosts(){
 
         `;
 
+
         postsContainer.appendChild(div);
     });
 
 
-    /* DELETE */
+    /* DELETE BUTTON */
 
     document
     .querySelectorAll(".deleteBtn")
@@ -153,16 +183,27 @@ async function loadPosts(){
 
         btn.onclick = async ()=>{
 
-            await deleteDoc(
+            try{
 
-                doc(
-                    db,
-                    "posts",
-                    btn.dataset.id
-                )
-            );
+                await deleteDoc(
 
-            loadPosts();
+                    doc(
+                        db,
+                        "posts",
+                        btn.dataset.id
+                    )
+                );
+
+                alert("Đã xóa bài");
+
+                loadPosts();
+
+            }catch(error){
+
+                alert(error.message);
+
+                console.log(error);
+            }
         };
     });
 }
@@ -191,7 +232,7 @@ postBtn.onclick = async ()=>{
         let imageUrl = "";
 
 
-        /* NẾU CÓ ẢNH */
+        /* UPLOAD IMAGE */
 
         if(
             imageInput &&
@@ -202,10 +243,15 @@ postBtn.onclick = async ()=>{
             const file =
             imageInput.files[0];
 
+
             const formData =
             new FormData();
 
-            formData.append("file", file);
+
+            formData.append(
+                "file",
+                file
+            );
 
             formData.append(
                 "upload_preset",
@@ -226,6 +272,7 @@ postBtn.onclick = async ()=>{
                     }
                 );
 
+
                 const data =
                 await response.json();
 
@@ -241,7 +288,7 @@ postBtn.onclick = async ()=>{
 
                     console.log(data);
 
-                   alert(JSON.stringify(data));
+                    alert("Upload ảnh lỗi");
                 }
 
             }catch(err){
@@ -261,20 +308,29 @@ postBtn.onclick = async ()=>{
 
             {
 
-                title:title.value,
+                title:
+                title.value,
 
-                content:content.value,
+                content:
+                content.value,
 
-                imageUrl:imageUrl || "",
+                imageUrl:
+                imageUrl || "",
 
-                userEmail:currentUser.email,
+                userEmail:
+                currentUser.email,
 
-                userId:currentUser.uid,
+                userId:
+                currentUser.uid,
 
-                createdAt:serverTimestamp()
+                createdAt:
+                serverTimestamp()
 
             }
         );
+
+
+        alert("Đăng bài thành công");
 
 
         title.value = "";
@@ -283,8 +339,6 @@ postBtn.onclick = async ()=>{
 
         imageInput.value = "";
 
-
-        alert("Đăng bài thành công");
 
         loadPosts();
 
