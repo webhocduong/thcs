@@ -1,3 +1,5 @@
+// FIREBASE
+
 import { auth } from "./firebase.js";
 
 import {
@@ -12,11 +14,17 @@ import {
 
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+
+// INPUT
+
 const email =
 document.getElementById("email");
 
 const password =
 document.getElementById("password");
+
+
+// BUTTON
 
 const registerBtn =
 document.getElementById("registerBtn");
@@ -24,124 +32,197 @@ document.getElementById("registerBtn");
 const loginBtn =
 document.getElementById("loginBtn");
 
-const guestButtons =
-document.getElementById("guestButtons");
 
-const userMenu =
-document.getElementById("userMenu");
+// USER AREA
 
-const userEmail =
-document.getElementById("userEmail");
+const userArea =
+document.getElementById("userArea");
 
-const logoutBtn =
-document.getElementById("logoutBtn");
+const authArea =
+document.getElementById("authArea");
 
 
+// ======================
 // ĐĂNG KÝ
+// ======================
 
-registerBtn.onclick = async () => {
+registerBtn.addEventListener(
+    "click",
+    async () => {
 
-    try{
+        if(email.value === ""){
 
-        await createUserWithEmailAndPassword(
+            alert("Nhập email");
 
-            auth,
+            return;
+        }
 
-            email.value,
+        if(password.value === ""){
 
-            password.value
+            alert("Nhập mật khẩu");
 
-        );
+            return;
+        }
 
-        alert("Đăng ký thành công");
+        try{
 
-    }catch(error){
+            await createUserWithEmailAndPassword(
+                auth,
+                email.value,
+                password.value
+            );
 
-        alert(error.message);
+            alert("Đăng ký thành công");
+
+        }catch(error){
+
+            alert(error.message);
+        }
     }
-};
+);
 
 
+// ======================
 // ĐĂNG NHẬP
+// ======================
 
-loginBtn.onclick = async () => {
+loginBtn.addEventListener(
+    "click",
+    async () => {
 
-    try{
+        if(email.value === ""){
 
-        await signInWithEmailAndPassword(
+            alert("Nhập email");
 
-            auth,
+            return;
+        }
 
-            email.value,
+        if(password.value === ""){
 
-            password.value
+            alert("Nhập mật khẩu");
 
-        );
+            return;
+        }
 
-        alert("Đăng nhập thành công");
+        try{
 
-    }catch(error){
+            await signInWithEmailAndPassword(
+                auth,
+                email.value,
+                password.value
+            );
 
-        alert(error.message);
+            alert("Đăng nhập thành công");
+
+        }catch(error){
+
+            alert(error.message);
+        }
     }
-};
+);
 
 
+// ======================
 // CHECK LOGIN
+// ======================
 
-onAuthStateChanged(auth, (user)=>{
+onAuthStateChanged(
+    auth,
+    (user)=>{
 
-    if(user){
+        if(user){
 
-        guestButtons.style.display = "none";
+            authArea.style.display = "none";
 
-        userMenu.style.display = "block";
-        userEmail.innerText = user.email;
 
-    }else{
+            userArea.innerHTML = `
 
-        guestButtons.style.display = "flex";
+                <div class="userMenu">
 
-        userMenu.style.display = "none";
+                    <div id="userBox">
+
+                        <img
+                            src="https://i.imgur.com/HeIi0wU.png"
+                            class="avatar"
+                        >
+
+                        <span>
+                            ${user.email}
+                        </span>
+
+                    </div>
+
+                    <div class="dropdownMenu">
+
+                        <button id="profileBtn">
+                            Hồ sơ
+                        </button>
+
+                        <button id="myPostsBtn">
+                            Bài đã đăng
+                        </button>
+
+                        <button id="logoutBtn">
+                            Đăng xuất
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            // PROFILE
+
+            document
+            .getElementById("profileBtn")
+            .addEventListener(
+                "click",
+                ()=>{
+
+                    alert(
+                        "Email: " +
+                        user.email
+                    );
+                }
+            );
+
+
+            // MY POSTS
+
+            document
+            .getElementById("myPostsBtn")
+            .addEventListener(
+                "click",
+                ()=>{
+
+                    window.location.href =
+                    "post.html";
+                }
+            );
+
+
+            // LOGOUT
+
+            document
+            .getElementById("logoutBtn")
+            .addEventListener(
+                "click",
+                async ()=>{
+
+                    await signOut(auth);
+
+                    location.reload();
+                }
+            );
+
+        }else{
+
+            authArea.style.display = "flex";
+
+            userArea.innerHTML = "";
+        }
     }
-});
-
-
-// LOGOUT
-
-logoutBtn.onclick = async ()=>{
-
-    await signOut(auth);
-
-    location.reload();
-};
-/* BÀI ĐÃ ĐĂNG */
-
-const myPostsBtn =
-document.getElementById("myPostsBtn");
-
-if(myPostsBtn){
-
-    myPostsBtn.onclick = ()=>{
-
-        window.location.href =
-        "post.html?myposts=true";
-    };
-}
-
-
-/* HỒ SƠ */
-
-const profileBtn =
-document.getElementById("profileBtn");
-
-if(profileBtn){
-
-    profileBtn.onclick = ()=>{
-
-        alert(
-            "Email: " +
-            auth.currentUser.email
-        );
-    };
-}
+);
+   
