@@ -1,21 +1,34 @@
+/* =========================
+RESET
+========================= */
+
 *{
+
     margin:0;
+
     padding:0;
+
     box-sizing:border-box;
+
+    font-family:Arial, sans-serif;
 }
+
 
 body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f4f6fb;
+
+    background:#f3f7ff;
+
+    overflow-x:hidden;
 }
 
-/* HEADER */
+
+/* =========================
+HEADER
+========================= */
 
 header{
 
     width:100%;
-
-    background:#0d47a1;
 
     display:flex;
 
@@ -23,1078 +36,9 @@ header{
 
     align-items:center;
 
-    padding:15px 40px;
-}
-
-.logo{
-
-    color:white;
-
-    font-size:32px;
-
-    font-weight:bold;
-}
-
-/* LOGIN */
-
-#guestButtons{
-
-    display:flex;
-
-    gap:10px;
-}
-
-#guestButtons input{
-
-    width:180px;
-
-    padding:12px;
-
-    border:none;
-
-    border-radius:10px;
-
-    outline:none;
-}
-
-#guestButtons button{
-
-    padding:12px 18px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:#1e88e5;
-
-    color:white;
-
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-/* USER */
-
-#userMenu{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-}
-
-#userEmail{
-
-    color:white;
-
-    font-weight:bold;
-}
-
-.dropdown{
-    position:relative;
-}
-
-.dropbtn{
-
-    width:45px;
-
-    height:45px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:white;
-
-    cursor:pointer;
-}
-
-.dropdown-content{
-
-    display:none;
-
-    position:absolute;
-
-    right:0;
-
-    top:50px;
-
-    background:white;
-
-    width:200px;
-
-    border-radius:10px;
-
-    overflow:hidden;
-
-    box-shadow:0 5px 10px rgba(0,0,0,0.1);
-}
-
-.dropdown-content a{
-
-    display:block;
-
-    padding:15px;
-
-    text-decoration:none;
-
-    color:black;
-}
-
-.dropdown-content a:hover{
-
-    background:#f2f2f2;
-}
-
-.dropdown:hover .dropdown-content{
-
-    display:block;
-}
-
-/* HERO */
-
-.hero{
-
-    width:100%;
-
-    padding:80px 20px;
+    padding:20px 60px;
 
     background:#1976d2;
-
-    text-align:center;
-
-    color:white;
-}
-
-.overlay h1{
-
-    font-size:55px;
-
-    margin-bottom:20px;
-}
-
-.overlay p{
-
-    font-size:24px;
-
-    margin-bottom:30px;
-}
-
-.heroButtons{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:20px;
-}
-
-.heroBtn{
-
-    padding:16px 30px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:white;
-
-    color:#1976d2;
-
-    font-size:20px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-/* MENU */
-
-.menu{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:25px;
-
-    margin-top:40px;
-}
-
-.menuBox{
-
-    width:230px;
-
-    background:white;
-
-    padding:30px;
-
-    text-align:center;
-
-    border-radius:20px;
-
-    font-size:28px;
-
-    font-weight:bold;
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* NEWS */
-
-.news{
-
-    width:90%;
-
-    margin:50px auto;
-
-    display:grid;
-
-    gap:30px;
-}
-
-.newsCard{
-
-    background:white;
-
-    padding:35px;
-
-    border-radius:20px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-.newsCard h2{
-
-    color:#0d47a1;
-
-    font-size:35px;
-
-    margin-bottom:20px;
-}
-
-.newsCard p{
-
-    font-size:22px;
-
-    line-height:1.6;
-}
-
-/* POST */
-
-.postContainer{
-
-    width:600px;
-
-    margin:50px auto;
-
-    background:white;
-
-    padding:40px;
-
-    border-radius:25px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:20px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-.postContainer h1{
-
-    text-align:center;
-
-    color:#0d47a1;
-
-    font-size:45px;
-}
-
-.postContainer input,
-.postContainer textarea{
-
-    width:100%;
-
-    padding:15px;
-
-    border-radius:12px;
-
-    border:1px solid #ccc;
-
-    font-size:18px;
-}
-
-.postContainer textarea{
-
-    min-height:180px;
-}
-
-.postContainer button{
-
-    padding:15px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:#1976d2;
-
-    color:white;
-
-    font-size:20px;
-
-    cursor:pointer;
-}
-
-/* POSTS */
-
-.center{
-
-    text-align:center;
-
-    margin-top:40px;
-
-    color:#0d47a1;
-
-    font-size:50px;
-}
-
-.postCard{
-
-    width:850px;
-
-    margin:30px auto;
-
-    background:white;
-
-    padding:35px;
-
-    border-radius:20px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-.postCard h2{
-
-    color:#0d47a1;
-
-    font-size:35px;
-
-    margin-bottom:20px;
-}
-
-.postCard p{
-
-    font-size:22px;
-
-    line-height:1.6;
-
-    margin-bottom:20px;
-}
-
-.postCard small{
-
-    color:#666;
-}
-
-/* DELETE */
-
-.deleteBtn{
-
-    padding:12px 20px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:red;
-
-    color:white;
-
-    cursor:pointer;
-}
-import {
-    auth,
-    db
-} from "./firebase.js";
-
-import {
-
-    collection,
-
-    getDocs,
-
-    deleteDoc,
-
-    doc
-
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-const postsContainer =
-document.getElementById("postsContainer");
-
-
-async function loadPosts(){
-
-    const querySnapshot =
-    await getDocs(collection(db, "posts"));
-
-    postsContainer.innerHTML = "";
-
-
-    querySnapshot.forEach((docSnap)=>{
-
-        const post =
-        docSnap.data();
-
-        const div =
-        document.createElement("div");
-
-        div.className = "postCard";
-
-
-        div.innerHTML = `
-
-            ${
-                post.imageUrl
-
-                ?
-
-                `<img
-                    src="${post.imageUrl}"
-                    class="postImage"
-                >`
-
-                :
-
-                ""
-            }
-
-            <h2>
-                ${post.title}
-            </h2>
-
-            <p>
-                ${post.content}
-            </p>
-
-            <small>
-                Đăng bởi:
-                ${post.userEmail}
-            </small>
-
-            <br><br>
-
-            ${
-                auth.currentUser &&
-                auth.currentUser.uid === post.userId
-
-                ?
-
-                `<button
-                    class="deleteBtn"
-                    data-id="${docSnap.id}">
-                    Xóa bài
-                </button>`
-
-                :
-
-                ""
-            }
-
-        `;
-
-
-        postsContainer.appendChild(div);
-    });
-
-
-    /* XÓA BÀI */
-
-    document
-    .querySelectorAll(".deleteBtn")
-
-    .forEach((btn)=>{
-
-        btn.onclick = async ()=>{
-
-            await deleteDoc(
-
-                doc(
-                    db,
-                    "posts",
-                    btn.dataset.id
-                )
-            );
-
-            loadPosts();
-        };
-    });
-}
-
-loadPosts();
-/* ẢNH BÀI VIẾT */
-
-.postImage{
-
-    width:100%;
-
-    max-width:500px;
-
-    height:auto;
-
-    display:block;
-
-    margin:0 auto 20px;
-
-    border-radius:15px;
-
-    object-fit:cover;
-}
-/* ẢNH */
-
-.postImage{
-
-    width:100%;
-
-    max-width:500px;
-
-    max-height:350px;
-
-    object-fit:cover;
-
-    display:block;
-
-    margin:0 auto 20px;
-
-    border-radius:15px;
-}
-/* NÚT CHỌN ẢNH */
-
-#imageInput{
-
-    background:#1976d2;
-
-    color:white;
-
-    padding:12px;
-
-    border:none;
-
-    border-radius:12px;
-
-    cursor:pointer;
-
-    font-size:16px;
-}
-
-
-/* PHẦN CHỮ CHỌN TỆP */
-
-#imageInput::file-selector-button{
-
-    background:#0d47a1;
-
-    color:white;
-
-    border:none;
-
-    padding:10px 18px;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-    margin-right:15px;
-}
-/* NÚT ĐĂNG BÀI NGAY */
-
-.heroLink{
-
-    display:inline-block;
-
-    background:#1976d2;
-
-    color:white;
-
-    padding:16px 30px;
-
-    border-radius:15px;
-
-    text-decoration:none;
-
-    font-size:20px;
-
-    font-weight:bold;
-
-    margin-top:20px;
-
-    transition:0.3s;
-}
-
-.heroLink:hover{
-
-    background:#0d47a1;
-}
-
-
-/* KHUNG BÀI VIẾT */
-
-.postCard{
-
-    background:white;
-
-    border:4px solid #1976d2;
-
-    border-radius:20px;
-
-    padding:25px;
-
-    margin:30px auto;
-
-    width:90%;
-
-    max-width:800px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-
-/* KHUNG ĐĂNG BÀI */
-
-.postContainer{
-
-    background:white;
-
-    border:4px solid #1976d2;
-
-    border-radius:20px;
-
-    padding:30px;
-
-    width:90%;
-
-    max-width:700px;
-
-    margin:40px auto;
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-/* NÚT ĐĂNG BÀI NGAY */
-
-.heroLink{
-
-    display:inline-block;
-
-    background:#1976d2;
-
-    color:white;
-
-    padding:16px 30px;
-
-    border-radius:15px;
-
-    text-decoration:none;
-
-    font-size:20px;
-
-    font-weight:bold;
-
-    margin-top:20px;
-
-    transition:0.3s;
-}
-
-.heroLink:hover{
-
-    background:#0d47a1;
-}
-
-
-/* KHUNG BÀI VIẾT */
-
-.postCard{
-
-    background:white;
-
-    border:4px solid #1976d2;
-
-    border-radius:20px;
-
-    padding:25px;
-
-    margin:30px auto;
-
-    width:90%;
-
-    max-width:800px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-
-/* KHUNG ĐĂNG BÀI */
-
-.postContainer{
-
-    background:white;
-
-    border:4px solid #1976d2;
-
-    border-radius:20px;
-
-    padding:30px;
-
-    width:90%;
-
-    max-width:700px;
-
-    margin:40px auto;
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-/* USER MENU */
-
-.userMenu{
-
-    position:relative;
-}
-
-
-#userBox{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    background:#1976d2;
-
-    color:white;
-
-    padding:10px 15px;
-
-    border-radius:12px;
-
-    cursor:pointer;
-}
-
-
-/* AVATAR */
-
-.avatar{
-
-    width:40px;
-
-    height:40px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    border:2px solid white;
-}
-
-
-/* DROPDOWN */
-
-.dropdownMenu{
-
-    display:none;
-
-    position:absolute;
-
-    right:0;
-
-    top:60px;
-
-    background:white;
-
-    width:180px;
-
-    border-radius:12px;
-
-    overflow:hidden;
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
-
-    z-index:1000;
-}
-
-
-.dropdownMenu button{
-
-    width:100%;
-
-    padding:15px;
-
-    border:none;
-
-    background:white;
-
-    text-align:left;
-
-    cursor:pointer;
-
-    font-size:16px;
-}
-
-
-.dropdownMenu button:hover{
-
-    background:#f1f1f1;
-}
-
-
-/* HIỆN MENU */
-
-.userMenu:hover .dropdownMenu{
-
-    display:block;
-}
-/* HEADER */
-
-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:15px 40px;
-
-    background:#1976d2;
-
-    color:white;
-}
-
-
-/* MENU TÀI KHOẢN */
-
-.userMenu{
-
-    position:relative;
-
-    margin-left:auto;
-}
-
-
-/* KHUNG USER */
-
-#userBox{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    background:#1565c0;
-
-    padding:10px 15px;
-
-    border-radius:12px;
-
-    cursor:pointer;
-}
-
-
-/* AVATAR */
-
-.avatar{
-
-    width:40px;
-
-    height:40px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    border:2px solid white;
-}
-
-
-/* DROPDOWN */
-
-.dropdownMenu{
-
-    display:none;
-
-    position:absolute;
-
-    top:60px;
-
-    right:0;
-
-    width:200px;
-
-    background:white;
-
-    border-radius:15px;
-
-    overflow:hidden;
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
-
-    z-index:999;
-}
-
-
-.dropdownMenu button{
-
-    width:100%;
-
-    border:none;
-
-    background:white;
-
-    padding:15px;
-
-    text-align:left;
-
-    cursor:pointer;
-
-    font-size:16px;
-}
-
-
-.dropdownMenu button:hover{
-
-    background:#f1f1f1;
-}
-
-
-/* HOVER */
-
-.userMenu:hover .dropdownMenu{
-
-    display:block;
-}
-/* DROPDOWN MENU ĐẸP */
-
-.dropdownMenu{
-
-    display:none;
-
-    position:absolute;
-
-    top:65px;
-
-    right:0;
-
-    width:220px;
-
-    background:white;
-
-    border-radius:18px;
-
-    overflow:hidden;
-
-    box-shadow:0 10px 25px rgba(0,0,0,0.2);
-
-    z-index:999;
-
-    animation:menuFade 0.3s ease;
-}
-
-
-/* HIỆU ỨNG */
-
-@keyframes menuFade{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(-10px);
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-    }
-}
-
-
-/* NÚT */
-
-.dropdownMenu button{
-
-    width:100%;
-
-    border:none;
-
-    background:white;
-
-    padding:16px 20px;
-
-    text-align:left;
-
-    cursor:pointer;
-
-    font-size:16px;
-
-    font-weight:600;
-
-    transition:0.3s;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-}
-
-
-/* HOVER */
-
-.dropdownMenu button:hover{
-
-    background:#1976d2;
-
-    color:white;
-
-    padding-left:28px;
-}
-
-
-/* ICON */
-
-#profileBtn::before{
-
-    content:"👤";
-}
-
-#myPostsBtn::before{
-
-    content:"📝";
-}
-
-#logoutBtn::before{
-
-    content:"🚪";
-}
-
-
-/* HIỆN MENU */
-
-.userMenu:hover .dropdownMenu{
-
-    display:block;
-}
-/* ===== HEADER ===== */
-
-header{
 
     position:fixed;
 
@@ -1102,345 +46,9 @@ header{
 
     left:0;
 
-    width:100%;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:15px 40px;
-
-    background:#1565c0;
-
-    z-index:1000;
-
-    box-shadow:0 3px 10px rgba(0,0,0,0.2);
-}
-
-
-/* ===== BODY ===== */
-
-body{
-
-    padding-top:90px;
-}
-
-
-/* ===== HERO ===== */
-
-.hero{
-
-    text-align:center;
-
-    padding:120px 20px;
-
-    background:#1976d2;
-
-    color:white;
-}
-
-
-.hero h2{
-
-    font-size:56px;
-
-    line-height:1.2;
-
-    margin-bottom:20px;
-}
-
-
-.hero p{
-
-    font-size:24px;
-
-    margin-bottom:40px;
-}
-
-
-/* ===== HERO BUTTON ===== */
-
-.heroLink{
-
-    display:inline-block;
-
-    background:white;
-
-    color:#1565c0;
-
-    padding:18px 35px;
-
-    border-radius:50px;
-
-    font-size:22px;
-
-    font-weight:bold;
-
-    text-decoration:none;
-
-    transition:0.3s;
-}
-
-
-.heroLink:hover{
-
-    transform:translateY(-5px);
-
-    background:#e3f2fd;
-}
-
-
-/* ===== USER MENU ===== */
-
-.userMenu{
-
-    position:relative;
-
-    margin-left:auto;
-}
-
-
-#userBox{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    background:#0d47a1;
-
-    color:white;
-
-    padding:10px 15px;
-
-    border-radius:15px;
-
-    cursor:pointer;
-}
-
-
-/* ===== AVATAR ===== */
-
-.avatar{
-
-    width:42px;
-
-    height:42px;
-
-    border-radius:50%;
-
-    border:2px solid white;
-
-    object-fit:cover;
-}
-
-
-/* ===== DROPDOWN ===== */
-
-.dropdownMenu{
-
-    display:none;
-
-    position:absolute;
-
-    top:65px;
-
-    right:0;
-
-    width:220px;
-
-    background:white;
-
-    border-radius:18px;
-
-    overflow:hidden;
-
-    box-shadow:0 10px 25px rgba(0,0,0,0.2);
-
     z-index:999;
 
-    animation:menuFade 0.3s ease;
-}
-
-
-/* ===== ANIMATION ===== */
-
-@keyframes menuFade{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(-10px);
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-    }
-}
-
-
-/* ===== DROPDOWN BUTTON ===== */
-
-.dropdownMenu button{
-
-    width:100%;
-
-    border:none;
-
-    background:white;
-
-    padding:16px 20px;
-
-    text-align:left;
-
-    cursor:pointer;
-
-    font-size:16px;
-
-    font-weight:600;
-
-    transition:0.3s;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-}
-
-
-.dropdownMenu button:hover{
-
-    background:#1976d2;
-
-    color:white;
-
-    padding-left:28px;
-}
-
-
-/* ===== ICON ===== */
-
-#profileBtn::before{
-
-    content:"👤";
-}
-
-
-#myPostsBtn::before{
-
-    content:"📝";
-}
-
-
-#logoutBtn::before{
-
-    content:"🚪";
-}
-
-
-/* ===== SHOW MENU ===== */
-
-.userMenu:hover .dropdownMenu{
-
-    display:block;
-}
-
-
-/* ===== ACTIVITIES ===== */
-
-.activities{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:30px;
-
-    flex-wrap:wrap;
-
-    padding:70px 30px;
-
-    background:#f5f7fb;
-}
-
-
-/* ===== CARD ===== */
-
-.activityCard{
-
-    background:white;
-
-    width:300px;
-
-    padding:30px;
-
-    border-radius:20px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-
-    transition:0.3s;
-}
-
-
-.activityCard:hover{
-
-    transform:translateY(-10px);
-}
-
-
-.activityCard h3{
-
-    margin-bottom:15px;
-
-    color:#1565c0;
-}
-/* CARD TEXT */
-
-.card h3{
-
-    font-size:30px;
-
-    margin-bottom:20px;
-
-    color:#1565c0;
-}
-
-
-.card p{
-
-    font-size:20px;
-
-    line-height:1.7;
-
-    color:#333;
-}
-/* ======================
-HEADER
-====================== */
-
-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:25px 60px;
-
-    background:#1976d2;
-
-    box-shadow:0 4px 20px rgba(0,0,0,0.1);
-
-    flex-wrap:wrap;
+    box-shadow:0 4px 20px rgba(0,0,0,0.15);
 }
 
 
@@ -1448,15 +56,17 @@ header{
 
 .logo{
 
-    font-size:58px;
+    color:white;
+
+    font-size:60px;
 
     font-weight:800;
-
-    color:white;
 }
 
 
-/* LOGIN AREA */
+/* =========================
+AUTH AREA
+========================= */
 
 #authArea{
 
@@ -1478,13 +88,11 @@ header{
 
     border:none;
 
-    border-radius:16px;
+    border-radius:18px;
 
     font-size:18px;
 
     outline:none;
-
-    background:white;
 
     box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
@@ -1498,7 +106,7 @@ header{
 
     border:none;
 
-    border-radius:16px;
+    border-radius:18px;
 
     background:#2196f3;
 
@@ -1523,4 +131,589 @@ header{
     background:#42a5f5;
 
     box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+
+/* =========================
+USER AREA
+========================= */
+
+#userArea{
+
+    position:relative;
+}
+
+
+/* USER MENU */
+
+.userMenu{
+
+    position:relative;
+}
+
+
+/* USER BOX */
+
+#userBox{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    background:white;
+
+    padding:12px 18px;
+
+    border-radius:20px;
+
+    cursor:pointer;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.15);
+}
+
+
+/* AVATAR */
+
+.avatar{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+}
+
+
+/* DROPDOWN */
+
+.dropdownMenu{
+
+    position:absolute;
+
+    right:0;
+
+    top:70px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:15px;
+
+    width:220px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,0.15);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:translateY(10px);
+
+    transition:0.3s;
+}
+
+
+/* SHOW MENU */
+
+.userMenu:hover .dropdownMenu{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:translateY(0);
+}
+
+
+/* MENU BUTTON */
+
+.dropdownMenu button{
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#f1f5ff;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+
+.dropdownMenu button:hover{
+
+    background:#2196f3;
+
+    color:white;
+
+    transform:translateX(5px);
+}
+
+
+/* =========================
+HERO
+========================= */
+
+.hero{
+
+    width:100%;
+
+    min-height:100vh;
+
+    background:linear-gradient(
+        135deg,
+        #1976d2,
+        #42a5f5
+    );
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    color:white;
+
+    padding:120px 20px 50px;
+}
+
+
+/* HERO TITLE */
+
+.hero h2{
+
+    font-size:100px;
+
+    font-weight:900;
+
+    line-height:1.1;
+
+    margin-bottom:30px;
+
+    animation:fadeUp 1s ease;
+}
+
+
+/* HERO TEXT */
+
+.hero p{
+
+    font-size:36px;
+
+    margin-bottom:60px;
+
+    animation:fadeUp 1.2s ease;
+}
+
+
+/* HERO BUTTON */
+
+.heroBtn{
+
+    padding:22px 50px;
+
+    background:white;
+
+    color:#1976d2;
+
+    border-radius:20px;
+
+    text-decoration:none;
+
+    font-size:28px;
+
+    font-weight:800;
+
+    transition:0.3s;
+
+    animation:fadeUp 1.4s ease;
+}
+
+
+/* HERO BUTTON HOVER */
+
+.heroBtn:hover{
+
+    transform:translateY(-5px);
+
+    background:#e3f2fd;
+}
+
+
+/* =========================
+ACTIVITIES
+========================= */
+
+.activities{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+    gap:30px;
+
+    padding:80px 60px;
+}
+
+
+/* CARD */
+
+.card{
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:25px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+
+    transition:0.3s;
+}
+
+
+/* CARD HOVER */
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+
+
+/* CARD TITLE */
+
+.card h3{
+
+    font-size:34px;
+
+    margin-bottom:25px;
+
+    color:#1565c0;
+}
+
+
+/* CARD TEXT */
+
+.card p{
+
+    font-size:22px;
+
+    line-height:1.8;
+
+    color:#444;
+}
+
+
+/* =========================
+POST PAGE
+========================= */
+
+.postContainer{
+
+    width:90%;
+
+    max-width:900px;
+
+    margin:150px auto 50px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:25px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+
+/* TITLE */
+
+.postContainer h1{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+    color:#1565c0;
+
+    font-size:50px;
+}
+
+
+/* INPUT */
+
+.postContainer input,
+
+.postContainer textarea{
+
+    width:100%;
+
+    padding:18px;
+
+    margin-bottom:20px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#f3f7ff;
+
+    font-size:18px;
+
+    outline:none;
+}
+
+
+/* TEXTAREA */
+
+.postContainer textarea{
+
+    height:200px;
+
+    resize:none;
+}
+
+
+/* FILE */
+
+#imageInput{
+
+    background:#2196f3;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+
+/* BUTTON */
+
+#postBtn{
+
+    width:100%;
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#1976d2;
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+
+/* BUTTON HOVER */
+
+#postBtn:hover{
+
+    transform:translateY(-4px);
+
+    background:#42a5f5;
+}
+
+
+/* =========================
+POSTS
+========================= */
+
+#postsContainer{
+
+    width:90%;
+
+    max-width:1000px;
+
+    margin:0 auto 80px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:30px;
+}
+
+
+/* POST CARD */
+
+.postCard{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:25px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+
+/* IMAGE */
+
+.postImage{
+
+    width:100%;
+
+    max-height:400px;
+
+    object-fit:cover;
+
+    border-radius:20px;
+
+    margin-bottom:20px;
+}
+
+
+/* TITLE */
+
+.postCard h2{
+
+    color:#1565c0;
+
+    margin-bottom:15px;
+
+    font-size:36px;
+}
+
+
+/* CONTENT */
+
+.postCard p{
+
+    font-size:20px;
+
+    line-height:1.8;
+
+    margin-bottom:20px;
+}
+
+
+/* DELETE */
+
+.deleteBtn{
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:red;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+
+/* ADMIN */
+
+.adminTag{
+
+    background:#1565c0;
+
+    color:white;
+
+    padding:5px 10px;
+
+    border-radius:10px;
+
+    font-size:14px;
+
+    margin-left:10px;
+}
+
+
+/* =========================
+ANIMATION
+========================= */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(40px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================
+MOBILE
+========================= */
+
+@media(max-width:900px){
+
+    header{
+
+        flex-direction:column;
+
+        gap:20px;
+    }
+
+    .hero h2{
+
+        font-size:60px;
+    }
+
+    .hero p{
+
+        font-size:28px;
+    }
+
+    #authArea{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+    }
+
+    #authArea input{
+
+        width:100%;
+    }
 }
