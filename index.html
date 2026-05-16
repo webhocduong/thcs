@@ -17,15 +17,19 @@
 
 <body>
 
+
+<!-- HEADER -->
+
 <header>
 
-    <div class="logo">
+    <h1 class="logo">
         THCS Hòa Chung
-    </div>
+    </h1>
 
-    <!-- KHÁCH -->
 
-    <div id="guestButtons">
+    <!-- LOGIN -->
+
+    <div id="authArea">
 
         <input
             type="email"
@@ -49,133 +53,83 @@
 
     </div>
 
+
     <!-- USER -->
 
-   <div id="userMenu"
-     class="userMenu"
-     style="display:none;">
-
-    <div id="userBox">
-
-        <img
-            src="https://i.imgur.com/6VBx3io.png"
-            class="avatar"
-        >
-
-        <span id="userEmail"></span>
-
-    </div>
-
-   <div class="dropdownMenu">
-
-    <button id="profileBtn">
-        Hồ sơ
-    </button>
-
-    <button id="myPostsBtn">
-        Bài đã đăng
-    </button>
-
-    <button id="logoutBtn">
-        Đăng xuất
-    </button>
-
-</div>
-</div>
-        <span id="userEmail"></span>
-
-       
-
-    </div>
+    <div id="userArea"></div>
 
 </header>
+
 
 <!-- HERO -->
 
 <section class="hero">
 
-    <div class="overlay">
+    <h2>
+        Chào mừng đến với
+        <br>
+        THCS Hòa Chung
+    </h2>
 
-        <h1>
-            Chào mừng đến với
-            <br>
-            THCS Hòa Chung
-        </h1>
+    <p>
+        Website hoạt động học sinh
+    </p>
+
+    <a href="post.html"
+       class="heroBtn">
+
+       Đăng bài & Xem bài viết
+
+    </a>
+
+</section>
+
+
+<!-- THÔNG BÁO -->
+
+<section class="activities">
+
+    <div class="card">
+
+        <h3>
+            🎉 Hoạt động trường
+        </h3>
 
         <p>
-            Website thông báo và hoạt động học sinh
+            Cập nhật hoạt động học sinh
+            mới nhất.
         </p>
 
-        <a href="post.html"
-           class="heroLink">
+    </div>
 
-            Đăng bài & Xem bài viết
+    <div class="card">
 
-        </a>
+        <h3>
+            📢 Thông báo
+        </h3>
+
+        <p>
+            Theo dõi thông báo
+            từ nhà trường.
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>
+            🏆 Thành tích
+        </h3>
+
+        <p>
+            Thành tích học tập
+            và phong trào.
+        </p>
 
     </div>
 
 </section>
 
-<!-- MENU -->
-
-<section class="menu">
-
-    <div class="menuBox">
-        📢 Thông báo
-    </div>
-
-    <div class="menuBox">
-        🏆 Hoạt động
-    </div>
-
-    <div class="menuBox">
-        📚 Học tập
-    </div>
-
-</section>
-
-<!-- NEWS -->
-
-<section class="news">
-
-    <div class="newsCard">
-
-        <h2>
-            📢 Thông báo họp phụ huynh
-        </h2>
-
-        <p>
-            Nhà trường sẽ tổ chức họp phụ huynh học kỳ II vào cuối tuần này.
-        </p>
-
-    </div>
-
-    <div class="newsCard">
-
-        <h2>
-            🏆 Hoạt động thể thao
-        </h2>
-
-        <p>
-            Giải bóng đá học sinh THCS Hòa Chung bắt đầu từ ngày 20 tháng này.
-        </p>
-
-    </div>
-
-    <div class="newsCard">
-
-        <h2>
-            🎉 Văn nghệ cuối năm
-        </h2>
-
-        <p>
-            Các lớp đang chuẩn bị tiết mục văn nghệ cho lễ tổng kết năm học.
-        </p>
-
-    </div>
-
-</section>
 
 <script type="module"
         src="script.js"></script>
