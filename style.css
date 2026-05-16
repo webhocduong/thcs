@@ -858,3 +858,123 @@ loadPosts();
 
     display:block;
 }
+/* HEADER */
+
+header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px 40px;
+
+    background:#1976d2;
+
+    color:white;
+}
+
+
+/* MENU TÀI KHOẢN */
+
+.userMenu{
+
+    position:relative;
+
+    margin-left:auto;
+}
+
+
+/* KHUNG USER */
+
+#userBox{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    background:#1565c0;
+
+    padding:10px 15px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+}
+
+
+/* AVATAR */
+
+.avatar{
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid white;
+}
+
+
+/* DROPDOWN */
+
+.dropdownMenu{
+
+    display:none;
+
+    position:absolute;
+
+    top:60px;
+
+    right:0;
+
+    width:200px;
+
+    background:white;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+
+    z-index:999;
+}
+
+
+.dropdownMenu button{
+
+    width:100%;
+
+    border:none;
+
+    background:white;
+
+    padding:15px;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    font-size:16px;
+}
+
+
+.dropdownMenu button:hover{
+
+    background:#f1f1f1;
+}
+
+
+/* HOVER */
+
+.userMenu:hover .dropdownMenu{
+
+    display:block;
+}
