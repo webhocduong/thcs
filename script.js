@@ -95,8 +95,7 @@ onAuthStateChanged(auth, (user)=>{
 
         guestButtons.style.display = "none";
 
-        userMenu.style.display = "flex";
-
+        userMenu.style.display = "block";
         userEmail.innerText = user.email;
 
     }else{
