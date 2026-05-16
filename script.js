@@ -115,3 +115,33 @@ logoutBtn.onclick = async ()=>{
 
     location.reload();
 };
+/* BÀI ĐÃ ĐĂNG */
+
+const myPostsBtn =
+document.getElementById("myPostsBtn");
+
+if(myPostsBtn){
+
+    myPostsBtn.onclick = ()=>{
+
+        window.location.href =
+        "post.html?myposts=true";
+    };
+}
+
+
+/* HỒ SƠ */
+
+const profileBtn =
+document.getElementById("profileBtn");
+
+if(profileBtn){
+
+    profileBtn.onclick = ()=>{
+
+        alert(
+            "Email: " +
+            auth.currentUser.email
+        );
+    };
+}
