@@ -1092,3 +1092,313 @@ header{
 
     display:block;
 }
+/* ===== HEADER ===== */
+
+header{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px 40px;
+
+    background:#1565c0;
+
+    z-index:1000;
+
+    box-shadow:0 3px 10px rgba(0,0,0,0.2);
+}
+
+
+/* ===== BODY ===== */
+
+body{
+
+    padding-top:90px;
+}
+
+
+/* ===== HERO ===== */
+
+.hero{
+
+    text-align:center;
+
+    padding:120px 20px;
+
+    background:#1976d2;
+
+    color:white;
+}
+
+
+.hero h2{
+
+    font-size:56px;
+
+    line-height:1.2;
+
+    margin-bottom:20px;
+}
+
+
+.hero p{
+
+    font-size:24px;
+
+    margin-bottom:40px;
+}
+
+
+/* ===== HERO BUTTON ===== */
+
+.heroLink{
+
+    display:inline-block;
+
+    background:white;
+
+    color:#1565c0;
+
+    padding:18px 35px;
+
+    border-radius:50px;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    text-decoration:none;
+
+    transition:0.3s;
+}
+
+
+.heroLink:hover{
+
+    transform:translateY(-5px);
+
+    background:#e3f2fd;
+}
+
+
+/* ===== USER MENU ===== */
+
+.userMenu{
+
+    position:relative;
+
+    margin-left:auto;
+}
+
+
+#userBox{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    background:#0d47a1;
+
+    color:white;
+
+    padding:10px 15px;
+
+    border-radius:15px;
+
+    cursor:pointer;
+}
+
+
+/* ===== AVATAR ===== */
+
+.avatar{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    border:2px solid white;
+
+    object-fit:cover;
+}
+
+
+/* ===== DROPDOWN ===== */
+
+.dropdownMenu{
+
+    display:none;
+
+    position:absolute;
+
+    top:65px;
+
+    right:0;
+
+    width:220px;
+
+    background:white;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+
+    z-index:999;
+
+    animation:menuFade 0.3s ease;
+}
+
+
+/* ===== ANIMATION ===== */
+
+@keyframes menuFade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-10px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+    }
+}
+
+
+/* ===== DROPDOWN BUTTON ===== */
+
+.dropdownMenu button{
+
+    width:100%;
+
+    border:none;
+
+    background:white;
+
+    padding:16px 20px;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:0.3s;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+
+.dropdownMenu button:hover{
+
+    background:#1976d2;
+
+    color:white;
+
+    padding-left:28px;
+}
+
+
+/* ===== ICON ===== */
+
+#profileBtn::before{
+
+    content:"👤";
+}
+
+
+#myPostsBtn::before{
+
+    content:"📝";
+}
+
+
+#logoutBtn::before{
+
+    content:"🚪";
+}
+
+
+/* ===== SHOW MENU ===== */
+
+.userMenu:hover .dropdownMenu{
+
+    display:block;
+}
+
+
+/* ===== ACTIVITIES ===== */
+
+.activities{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    flex-wrap:wrap;
+
+    padding:70px 30px;
+
+    background:#f5f7fb;
+}
+
+
+/* ===== CARD ===== */
+
+.activityCard{
+
+    background:white;
+
+    width:300px;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+    transition:0.3s;
+}
+
+
+.activityCard:hover{
+
+    transform:translateY(-10px);
+}
+
+
+.activityCard h3{
+
+    margin-bottom:15px;
+
+    color:#1565c0;
+}
