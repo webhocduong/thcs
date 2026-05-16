@@ -79,10 +79,15 @@ async function loadPosts(){
     postsContainer.innerHTML = "";
 
 
-    const querySnapshot =
-    await getDocs(collection(db, "posts"));
+   const querySnapshot =
+await getDocs(collection(db, "posts"));
 
 
+const urlParams =
+new URLSearchParams(window.location.search);
+
+const onlyMine =
+urlParams.get("myposts");
     querySnapshot.forEach((docSnap)=>{
 
         const post =
