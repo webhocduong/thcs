@@ -1422,3 +1422,105 @@ body{
 
     color:#333;
 }
+/* ======================
+HEADER
+====================== */
+
+header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:25px 60px;
+
+    background:#1976d2;
+
+    box-shadow:0 4px 20px rgba(0,0,0,0.1);
+
+    flex-wrap:wrap;
+}
+
+
+/* LOGO */
+
+.logo{
+
+    font-size:58px;
+
+    font-weight:800;
+
+    color:white;
+}
+
+
+/* LOGIN AREA */
+
+#authArea{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+}
+
+
+/* INPUT */
+
+#authArea input{
+
+    width:230px;
+
+    padding:16px 20px;
+
+    border:none;
+
+    border-radius:16px;
+
+    font-size:18px;
+
+    outline:none;
+
+    background:white;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+
+/* BUTTON */
+
+#authArea button{
+
+    padding:15px 28px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:#2196f3;
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+
+/* HOVER */
+
+#authArea button:hover{
+
+    transform:translateY(-3px);
+
+    background:#42a5f5;
+
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
