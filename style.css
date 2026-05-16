@@ -758,3 +758,103 @@ loadPosts();
 
     box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
+/* USER MENU */
+
+.userMenu{
+
+    position:relative;
+}
+
+
+#userBox{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    background:#1976d2;
+
+    color:white;
+
+    padding:10px 15px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+}
+
+
+/* AVATAR */
+
+.avatar{
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid white;
+}
+
+
+/* DROPDOWN */
+
+.dropdownMenu{
+
+    display:none;
+
+    position:absolute;
+
+    right:0;
+
+    top:60px;
+
+    background:white;
+
+    width:180px;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+
+    z-index:1000;
+}
+
+
+.dropdownMenu button{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    background:white;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    font-size:16px;
+}
+
+
+.dropdownMenu button:hover{
+
+    background:#f1f1f1;
+}
+
+
+/* HIỆN MENU */
+
+.userMenu:hover .dropdownMenu{
+
+    display:block;
+}
