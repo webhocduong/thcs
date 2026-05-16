@@ -1,389 +1,272 @@
- // FIREBASE
+// script.js
+
+import { auth } from "./firebase.js";
 
 import {
 
-    auth,
-    db
+    createUserWithEmailAndPassword,
 
-} from "./firebase.js";
+    signInWithEmailAndPassword,
 
+    onAuthStateChanged,
 
-import {
-
-    collection,
-
-    addDoc,
-
-    getDocs,
-
-    deleteDoc,
-
-    doc,
-
-    serverTimestamp
-
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-
-import {
-
-    onAuthStateChanged
+    signOut
 
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
 // ======================
-// ADMIN
+// INPUT
 // ======================
 
-const adminEmail =
-"vuthanhthuycb@gmail.com";
+const email =
+document.getElementById("email");
+
+const password =
+document.getElementById("password");
 
 
 // ======================
-// ELEMENT
+// BUTTON
 // ======================
 
-const title =
-document.getElementById("title");
+const registerBtn =
+document.getElementById("registerBtn");
 
-const content =
-document.getElementById("content");
-
-const imageInput =
-document.getElementById("imageInput");
-
-const postBtn =
-document.getElementById("postBtn");
-
-const postsContainer =
-document.getElementById("postsContainer");
+const loginBtn =
+document.getElementById("loginBtn");
 
 
-let currentUser = null;
+// ======================
+// AREA
+// ======================
+
+const authArea =
+document.getElementById("authArea");
+
+const userArea =
+document.getElementById("userArea");
+
+
+// ======================
+// REGISTER
+// ======================
+
+if(registerBtn){
+
+    registerBtn.onclick = async ()=>{
+
+        if(email.value.trim() === ""){
+
+            alert("Nhập email");
+
+            return;
+        }
+
+        if(password.value.trim() === ""){
+
+            alert("Nhập mật khẩu");
+
+            return;
+        }
+
+        try{
+
+            await createUserWithEmailAndPassword(
+
+                auth,
+
+                email.value,
+
+                password.value
+            );
+
+            alert("Đăng ký thành công");
+
+        }catch(error){
+
+            alert(error.message);
+
+            console.log(error);
+        }
+    };
+}
+
+
+// ======================
+// LOGIN
+// ======================
+
+if(loginBtn){
+
+    loginBtn.onclick = async ()=>{
+
+        if(email.value.trim() === ""){
+
+            alert("Nhập email");
+
+            return;
+        }
+
+        if(password.value.trim() === ""){
+
+            alert("Nhập mật khẩu");
+
+            return;
+        }
+
+        try{
+
+            await signInWithEmailAndPassword(
+
+                auth,
+
+                email.value,
+
+                password.value
+            );
+
+            alert("Đăng nhập thành công");
+
+        }catch(error){
+
+            alert(error.message);
+
+            console.log(error);
+        }
+    };
+}
 
 
 // ======================
 // CHECK LOGIN
 // ======================
 
-onAuthStateChanged(auth, async (user)=>{
+onAuthStateChanged(auth, (user)=>{
 
     if(user){
 
-        currentUser = user;
+        // ẨN LOGIN REGISTER
 
-        loadPosts();
+        if(authArea){
 
-    }else{
+            authArea.style.display =
+            "none";
+        }
 
-        alert("Bạn phải đăng nhập");
 
-        window.location.href =
-        "index.html";
-    }
-});
+        // HIỆN USER
 
+        if(userArea){
 
-// ======================
-// LOAD POSTS
-// ======================
+            userArea.innerHTML = `
 
-async function loadPosts(){
+                <div class="userMenu">
 
-    postsContainer.innerHTML = "";
+                    <div id="userBox">
 
+                        <img
+                            src="https://i.imgur.com/HeIi0wU.png"
+                            class="avatar"
+                        >
 
-    const querySnapshot =
-    await getDocs(
-        collection(db, "posts")
-    );
+                        <span>
+                            ${user.email}
+                        </span>
 
+                    </div>
 
-    querySnapshot.forEach((docSnap)=>{
+                    <div class="dropdownMenu">
 
-        const post =
-        docSnap.data();
+                        <button id="profileBtn">
+                            Hồ sơ
+                        </button>
 
+                        <button id="myPostsBtn">
+                            Bài đã đăng
+                        </button>
 
-        const div =
-        document.createElement("div");
+                        <button id="logoutBtn">
+                            Đăng xuất
+                        </button>
 
+                    </div>
 
-        div.className =
-        "postCard";
+                </div>
 
-
-        div.innerHTML = `
-
-            ${
-                post.imageUrl
-
-                ?
-
-                `<img
-                    src="${post.imageUrl}"
-                    class="postImage"
-                >`
-
-                :
-
-                ""
-            }
-
-            <h2>
-                ${post.title}
-            </h2>
-
-            <p>
-                ${post.content}
-            </p>
-
-            <small>
-
-                Đăng bởi:
-
-                ${post.userEmail}
-
-                ${
-                    post.userEmail === adminEmail
-
-                    ?
-
-                    `<span class="adminTag">
-                        ADMIN
-                    </span>`
-
-                    :
-
-                    ""
-                }
-
-            </small>
-
-            <br><br>
-
-            ${
-                currentUser && (
-
-                    currentUser.uid === post.userId ||
-
-                    currentUser.email === adminEmail
-                )
-
-                ?
-
-                `<button
-                    class="deleteBtn"
-                    data-id="${docSnap.id}">
-                    Xóa bài
-                </button>`
-
-                :
-
-                ""
-            }
-
-        `;
-
-
-        postsContainer.appendChild(div);
-    });
-
-
-    // ======================
-    // DELETE
-    // ======================
-
-    document
-    .querySelectorAll(".deleteBtn")
-
-    .forEach((btn)=>{
-
-        btn.onclick = async ()=>{
-
-            try{
-
-                await deleteDoc(
-
-                    doc(
-                        db,
-                        "posts",
-                        btn.dataset.id
-                    )
-                );
-
-                alert("Đã xóa bài");
-
-                loadPosts();
-
-            }catch(error){
-
-                console.log(error);
-
-                alert(error.message);
-            }
-        };
-    });
-}
-
-
-// ======================
-// POST
-// ======================
-
-postBtn.onclick = async ()=>{
-
-    // TITLE
-
-    if(title.value.trim() === ""){
-
-        alert("Nhập tiêu đề");
-
-        return;
-    }
-
-
-    // CONTENT
-
-    if(content.value.trim() === ""){
-
-        alert("Nhập nội dung");
-
-        return;
-    }
-
-
-    try{
-
-        let imageUrl = "";
-
-
-        // ======================
-        // UPLOAD IMAGE
-        // ======================
-
-        if(
-
-            imageInput &&
-
-            imageInput.files &&
-
-            imageInput.files.length > 0
-
-        ){
-
-            const file =
-            imageInput.files[0];
-
-
-            const formData =
-            new FormData();
-
-
-            formData.append(
-                "file",
-                file
-            );
-
-
-            formData.append(
-                "upload_preset",
-                "school_upload"
-            );
-
-
-            try{
-
-                const response =
-                await fetch(
-
-                    "https://api.cloudinary.com/v1_1/dfoo4jpkz/image/upload",
-
-                    {
-                        method:"POST",
-
-                        body:formData
-                    }
-                );
-
-
-                const data =
-                await response.json();
-
-
-                if(data.secure_url){
-
-                    imageUrl =
-                    data.secure_url;
-
-                }else{
-
-                    console.log(data);
-
-                    alert("Upload ảnh lỗi");
-                }
-
-            }catch(err){
-
-                console.log(err);
-
-                alert("Lỗi upload ảnh");
-            }
+            `;
         }
 
 
         // ======================
-        // SAVE FIREBASE
+        // PROFILE
         // ======================
 
-        await addDoc(
+        const profileBtn =
+        document.getElementById("profileBtn");
 
-            collection(db, "posts"),
+        if(profileBtn){
 
-            {
+            profileBtn.onclick = ()=>{
 
-                title:
-                title.value,
-
-                content:
-                content.value,
-
-                imageUrl:
-                imageUrl || "",
-
-                userEmail:
-                currentUser.email,
-
-                userId:
-                currentUser.uid,
-
-                createdAt:
-                serverTimestamp()
-            }
-        );
+                alert(
+                    "Tài khoản:\n\n" +
+                    user.email
+                );
+            };
+        }
 
 
         // ======================
-        // SUCCESS
+        // POSTS
         // ======================
 
-        alert("Đăng bài thành công");
+        const myPostsBtn =
+        document.getElementById("myPostsBtn");
+
+        if(myPostsBtn){
+
+            myPostsBtn.onclick = ()=>{
+
+                window.location.href =
+                "post.html";
+            };
+        }
 
 
-        title.value = "";
+        // ======================
+        // LOGOUT
+        // ======================
 
-        content.value = "";
+        const logoutBtn =
+        document.getElementById("logoutBtn");
 
-        imageInput.value = "";
+        if(logoutBtn){
+
+            logoutBtn.onclick = async ()=>{
+
+                await signOut(auth);
+
+                location.reload();
+            };
+        }
+
+    }else{
+
+        // HIỆN LOGIN REGISTER
+
+        if(authArea){
+
+            authArea.style.display =
+            "flex";
+        }
 
 
-        loadPosts();
+        // XÓA USER MENU
 
-    }catch(error){
+        if(userArea){
 
-        console.log(error);
-
-        alert(error.message);
+            userArea.innerHTML = "";
+        }
     }
-};  
+});
