@@ -1402,3 +1402,23 @@ body{
 
     color:#1565c0;
 }
+/* CARD TEXT */
+
+.card h3{
+
+    font-size:30px;
+
+    margin-bottom:20px;
+
+    color:#1565c0;
+}
+
+
+.card p{
+
+    font-size:20px;
+
+    line-height:1.7;
+
+    color:#333;
+}
