@@ -90,6 +90,22 @@ const onlyMine =
 urlParams.get("myposts");
     querySnapshot.forEach((docSnap)=>{
 
+    const post =
+    docSnap.data();
+
+
+    if(
+
+        onlyMine === "true"
+
+        &&
+
+        post.userId !== currentUser.uid
+
+    ){
+
+        return;
+    }
         const post =
         docSnap.data();
 
