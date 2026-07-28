@@ -41,7 +41,7 @@ from
 // ======================
 
 const adminEmail =
-"vuthanhthuycb@gmail.com";
+"ioe2thcshc@gmail.com";
 
 
 // ======================
