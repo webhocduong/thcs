@@ -1,5 +1,5 @@
 import { auth, db } from './firebase.js';
-import { collection, addDoc, getDocs, getDoc, deleteDoc, doc, serverTimestamp, updateDoc, increment } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { collection, addDoc, getDocs, getDoc, deleteDoc, doc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import { renderShell, postCard, postActionButtons, emptyState, adminEmail, bindPostInteractions } from './ui.js';
 
@@ -15,11 +15,9 @@ async function renderPostDetail(id, user){
     const snap = await getDoc(ref);
     if(!snap.exists()){ main.innerHTML = emptyState('Không tìm thấy bài viết'); return; }
     const post = { id: snap.id, ...snap.data() };
-    await updateDoc(ref, { views: increment(1) });
-    post.views = (post.views || 0) + 1;
     const date = post.createdAt?.toDate ? post.createdAt.toDate().toLocaleDateString('vi-VN') : 'Mới đăng';
     const img = post.imageUrl || 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80';
-    main.innerHTML = `<article class="detail-card"><img class="detail-thumb" src="${img}" alt="${post.title||'Bài viết'}"><div class="detail-body"><span class="badge">${post.category||'Học tập'}</span><h1>${post.title||'Bài viết mới'}</h1><p class="detail-content">${post.content||'Nội dung đang được cập nhật.'}</p><div class="post-date detail-date">📅 ${date}</div><div class="post-actions detail-actions"><span>👁 ${post.views||0}</span>${postActionButtons(post, user)}<span>💬 ${post.comments||0}</span></div><a class="read-more" href="news.html">← Quay lại Feed</a></div></article>`;
+    main.innerHTML = `<article class="detail-card"><img class="detail-thumb" src="${img}" alt="${post.title||'Bài viết'}"><div class="detail-body"><span class="badge">${post.category||'Học tập'}</span><h1>${post.title||'Bài viết mới'}</h1><p class="detail-content">${post.content||'Nội dung đang được cập nhật.'}</p><div class="post-date detail-date">📅 ${date}</div><div class="post-actions detail-actions">${postActionButtons(post, user)}</div><a class="read-more" href="news.html">← Quay lại Feed</a></div></article>`;
     bindPostInteractions(user);
   }catch(e){ console.warn(e); main.innerHTML = emptyState('Không tải được bài viết'); }
 }
@@ -34,6 +32,6 @@ async function submitPost(e){
   if(!title.value.trim() || !content.value.trim()){ alert('Nhập tiêu đề và nội dung'); return; }
   let imageUrl='';
   if(imageInput.files?.length){ const formData=new FormData(); formData.append('file', imageInput.files[0]); formData.append('upload_preset','school_upload'); const res=await fetch('https://api.cloudinary.com/v1_1/dfoo4jpkz/image/upload',{method:'POST',body:formData}); const data=await res.json(); imageUrl=data.secure_url || ''; }
-  await addDoc(collection(db,'posts'), { title:title.value, content:content.value, category:category.value, imageUrl, userEmail:currentUser.email, userId:currentUser.uid, createdAt:serverTimestamp(), likedBy: [], likes: 0, views: 0, comments: 0 });
+  await addDoc(collection(db,'posts'), { title:title.value, content:content.value, category:category.value, imageUrl, userEmail:currentUser.email, userId:currentUser.uid, createdAt:serverTimestamp(), likedBy: [], likes: 0, comments: 0 });
   alert('Đăng bài thành công'); e.target.reset(); loadPosts();
 }
