@@ -60,11 +60,8 @@ function miniPost(p){ return `<a class="mini-post" href="news.html"><img src="${
 export function postCard(p, user=null){
   const date = p.createdAt?.toDate ? p.createdAt.toDate().toLocaleDateString('vi-VN') : (p.date || 'Mới đăng');
   const img = p.imageUrl || 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80';
-  const likedBy = Array.isArray(p.likedBy) ? p.likedBy : [];
-  const likes = Number.isFinite(p.likes) ? p.likes : likedBy.length;
-  const isLiked = Boolean(user?.uid && likedBy.includes(user.uid));
   const detailUrl = p.id ? `post.html?id=${encodeURIComponent(p.id)}` : 'post.html';
-  return `<article class="post-card"><img class="post-thumb" src="${img}" alt="${p.title||'Bài viết'}"><div class="post-body"><span class="badge">${p.category||'Học tập'}</span><h3>${p.title||'Bài viết mới'}</h3><p>${p.content||'Nội dung đang được cập nhật.'}</p><div class="post-meta"><img src="${avatarUrl}" alt=""><span>${p.author||p.userEmail||'Tác giả'}</span><span>${date}</span></div><div class="post-actions"><span>👁 ${p.views||0}</span>${postActionButtons(p, user)}<span>💬 ${p.comments||0}</span><a class="read-more" href="${detailUrl}">Đọc tiếp</a></div></div></article>`;
+  return `<article class="post-card"><img class="post-thumb" src="${img}" alt="${p.title||'Bài viết'}"><div class="post-body"><span class="badge">${p.category||'Học tập'}</span><h3>${p.title||'Bài viết mới'}</h3><p>${p.content||'Nội dung đang được cập nhật.'}</p><div class="post-date">📅 ${date}</div><div class="post-actions"><span>👁 ${p.views||0}</span>${postActionButtons(p, user)}<span>💬 ${p.comments||0}</span><a class="read-more" href="${detailUrl}">Đọc tiếp</a></div></div></article>`;
 }
 
 export function postActionButtons(p, user=null){
