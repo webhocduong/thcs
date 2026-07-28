@@ -1,4 +1,6 @@
 import { categories, mockPosts, newMembers } from './mockData.js';
+import { db } from './firebase.js';
+import { doc, updateDoc, arrayUnion, arrayRemove, increment } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 export const adminEmail = 'ioe2thcshc@gmail.com';
 export const avatarUrl = 'https://i.imgur.com/HeIi0wU.png';
@@ -55,10 +57,55 @@ export function rightSidebar(){
 }
 
 function miniPost(p){ return `<a class="mini-post" href="news.html"><img src="${p.imageUrl}" alt=""><span>${p.title}</span></a>`; }
-export function postCard(p){
+export function postCard(p, user=null){
   const date = p.createdAt?.toDate ? p.createdAt.toDate().toLocaleDateString('vi-VN') : (p.date || 'Mới đăng');
   const img = p.imageUrl || 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80';
-  return `<article class="post-card"><img class="post-thumb" src="${img}" alt="${p.title||'Bài viết'}"><div class="post-body"><span class="badge">${p.category||'Học tập'}</span><h3>${p.title||'Bài viết mới'}</h3><p>${p.content||'Nội dung đang được cập nhật.'}</p><div class="post-meta"><img src="${avatarUrl}" alt=""><span>${p.author||p.userEmail||'Tác giả'}</span><span>${date}</span></div><div class="post-actions"><span>👁 ${p.views||0}</span><span>💙 ${p.likes||0}</span><span>💬 ${p.comments||0}</span><a class="read-more" href="post.html">Đọc tiếp</a></div></div></article>`;
+  const likedBy = Array.isArray(p.likedBy) ? p.likedBy : [];
+  const likes = Number.isFinite(p.likes) ? p.likes : likedBy.length;
+  const isLiked = Boolean(user?.uid && likedBy.includes(user.uid));
+  const detailUrl = p.id ? `post.html?id=${encodeURIComponent(p.id)}` : 'post.html';
+  return `<article class="post-card"><img class="post-thumb" src="${img}" alt="${p.title||'Bài viết'}"><div class="post-body"><span class="badge">${p.category||'Học tập'}</span><h3>${p.title||'Bài viết mới'}</h3><p>${p.content||'Nội dung đang được cập nhật.'}</p><div class="post-meta"><img src="${avatarUrl}" alt=""><span>${p.author||p.userEmail||'Tác giả'}</span><span>${date}</span></div><div class="post-actions"><span>👁 ${p.views||0}</span>${postActionButtons(p, user)}<span>💬 ${p.comments||0}</span><a class="read-more" href="${detailUrl}">Đọc tiếp</a></div></div></article>`;
+}
+
+export function postActionButtons(p, user=null){
+  const likedBy = Array.isArray(p.likedBy) ? p.likedBy : [];
+  const likes = Number.isFinite(p.likes) ? p.likes : likedBy.length;
+  const isLiked = Boolean(user?.uid && likedBy.includes(user.uid));
+  const detailUrl = p.id ? `post.html?id=${encodeURIComponent(p.id)}` : 'post.html';
+  return `<button class="action-btn like-btn ${isLiked?'liked':''}" data-post-id="${p.id||''}" data-liked="${isLiked}" aria-label="${isLiked?'Bỏ thích':'Thích'} bài viết">❤️ <span class="like-count">${likes}</span></button><button class="action-btn share-btn" data-share-url="${detailUrl}" data-share-title="${p.title||'Bài viết'}" aria-label="Chia sẻ bài viết">📤 Chia sẻ</button>`;
+}
+
+export function bindPostInteractions(user, onChanged){
+  document.querySelectorAll('.like-btn').forEach((btn)=>{
+    btn.onclick = async()=>{
+      const postId = btn.dataset.postId;
+      if(!postId){ alert('Bài viết mẫu chưa thể thích.'); return; }
+      if(!user){ alert('Bạn cần đăng nhập để thích bài viết.'); return; }
+      const liked = btn.dataset.liked === 'true';
+      btn.disabled = true;
+      try{
+        await updateDoc(doc(db, 'posts', postId), { likedBy: liked ? arrayRemove(user.uid) : arrayUnion(user.uid), likes: increment(liked ? -1 : 1) });
+        const count = btn.querySelector('.like-count');
+        const nextLiked = !liked;
+        btn.dataset.liked = String(nextLiked);
+        btn.classList.toggle('liked', nextLiked);
+        btn.setAttribute('aria-label', nextLiked ? 'Bỏ thích bài viết' : 'Thích bài viết');
+        if(count) count.textContent = Math.max(0, Number(count.textContent || 0) + (nextLiked ? 1 : -1));
+        onChanged?.(postId, nextLiked);
+      }catch(e){ console.warn(e); alert('Không thể cập nhật lượt thích.'); }
+      finally{ btn.disabled = false; }
+    };
+  });
+  document.querySelectorAll('.share-btn').forEach((btn)=>{
+    btn.onclick = async()=>{
+      const url = new URL(btn.dataset.shareUrl || location.href, location.href).href;
+      const title = btn.dataset.shareTitle || document.title;
+      try{
+        if(navigator.share) await navigator.share({ title, url });
+        else{ await navigator.clipboard.writeText(url); alert('Đã sao chép liên kết bài viết.'); }
+      }catch(e){ if(e.name !== 'AbortError'){ console.warn(e); alert('Không thể chia sẻ bài viết.'); } }
+    };
+  });
 }
 export function categoryCard(c){ return `<article class="category-card"><div class="category-icon">${c.icon}</div><h3>${c.name}</h3><p>${c.desc}</p><span>${c.count} bài viết</span></article>`; }
 export function statCard(label, value, icon='📌'){ return `<div class="stat-card"><span>${icon}</span><strong>${value}</strong><small>${label}</small></div>`; }
