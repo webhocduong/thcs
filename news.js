@@ -6,7 +6,7 @@ import { renderShell, mockPosts, postCard, emptyState, bindPostInteractions } fr
 let allPosts = [];
 onAuthStateChanged(auth, async(user)=>{ renderShell('feed', user); await loadPosts(user); bindFeed(); });
 async function loadPosts(user){
-  try{ const snap = await getDocs(query(collection(db,'posts'), orderBy('createdAt','desc'))); allPosts = snap.docs.map(d=>({ id:d.id, ...d.data(), views: d.data().views || 0, comments: d.data().comments || 0 })); }catch(e){ console.warn(e); allPosts = []; }
+  try{ const snap = await getDocs(query(collection(db,'posts'), orderBy('createdAt','desc'))); allPosts = snap.docs.map(d=>({ id:d.id, ...d.data(), comments: d.data().comments || 0 })); }catch(e){ console.warn(e); allPosts = []; }
   if(!allPosts.length) allPosts = mockPosts;
   renderFeed(allPosts, user);
 }
@@ -16,7 +16,7 @@ function renderFeed(posts, user){
 function deleteButton(p,user){ return user && (user.uid===p.userId || user.email===p.userEmail) ? `<button class="deleteBtn" data-id="${p.id}">Xóa bài</button>` : ''; }
 function bindFeed(){
   document.getElementById('feedSearch')?.addEventListener('input', e=>{ const q=e.target.value.toLowerCase(); document.getElementById('feedList').innerHTML = allPosts.filter(p=>(p.title+p.content).toLowerCase().includes(q)).map(p=>postCard(p, auth.currentUser)).join('') || emptyState('Không tìm thấy bài phù hợp'); bindPostInteractions(auth.currentUser); });
-  document.querySelectorAll('[data-filter]').forEach(btn=>btn.onclick=()=>{ const type=btn.dataset.filter; const sorted=[...allPosts].sort((a,b)=> type==='liked'?b.likes-a.likes:type==='commented'?b.comments-a.comments:b.views-a.views); document.getElementById('feedList').innerHTML=sorted.map(p=>postCard(p, auth.currentUser)).join(''); bindFeed(); });
+  document.querySelectorAll('[data-filter]').forEach(btn=>btn.onclick=()=>{ const type=btn.dataset.filter; const sorted=[...allPosts].sort((a,b)=> type==='liked'?(b.likes||0)-(a.likes||0):type==='commented'?(b.comments||0)-(a.comments||0):(b.likes||0)-(a.likes||0)); document.getElementById('feedList').innerHTML=sorted.map(p=>postCard(p, auth.currentUser)).join(''); bindFeed(); });
   bindPostInteractions(auth.currentUser);
   document.querySelectorAll('.deleteBtn').forEach(btn=>btn.onclick=async()=>{ if(confirm('Bạn có chắc muốn xóa?')){ await deleteDoc(doc(db,'posts',btn.dataset.id)); location.reload(); } });
 }

@@ -52,8 +52,8 @@ function leftSidebar(active, user){
 }
 
 export function rightSidebar(){
-  const top = [...mockPosts].sort((a,b)=>b.views-a.views).slice(0,3);
-  return `<aside class="right-sidebar"><section class="panel"><h3>Bài nổi bật</h3>${mockPosts.filter(p=>p.featured).map(miniPost).join('')}</section><section class="panel"><h3>Bài xem nhiều</h3>${top.map(miniPost).join('')}</section><section class="panel"><h3>Thành viên mới</h3>${newMembers.map(n=>`<div class="member"><img src="${avatarUrl}" alt=""><span>${n}</span></div>`).join('')}</section><section class="panel stats"><h3>Thống kê</h3><b>128</b><span>bài viết</span><b>2.4k</b><span>lượt đọc</span></section></aside>`;
+  const top = [...mockPosts].sort((a,b)=>(b.likes||0)-(a.likes||0)).slice(0,3);
+  return `<aside class="right-sidebar"><section class="panel"><h3>Bài nổi bật</h3>${mockPosts.filter(p=>p.featured).map(miniPost).join('')}</section><section class="panel"><h3>Được yêu thích</h3>${top.map(miniPost).join('')}</section><section class="panel"><h3>Thành viên mới</h3>${newMembers.map(n=>`<div class="member"><img src="${avatarUrl}" alt=""><span>${n}</span></div>`).join('')}</section><section class="panel stats"><h3>Thống kê</h3><b>128</b><span>bài viết</span><b>2.4k</b><span>lượt tương tác</span></section></aside>`;
 }
 
 function miniPost(p){ return `<a class="mini-post" href="news.html"><img src="${p.imageUrl}" alt=""><span>${p.title}</span></a>`; }
@@ -61,23 +61,28 @@ export function postCard(p, user=null){
   const date = p.createdAt?.toDate ? p.createdAt.toDate().toLocaleDateString('vi-VN') : (p.date || 'Mới đăng');
   const img = p.imageUrl || 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80';
   const detailUrl = p.id ? `post.html?id=${encodeURIComponent(p.id)}` : 'post.html';
-  return `<article class="post-card"><img class="post-thumb" src="${img}" alt="${p.title||'Bài viết'}"><div class="post-body"><span class="badge">${p.category||'Học tập'}</span><h3>${p.title||'Bài viết mới'}</h3><p>${p.content||'Nội dung đang được cập nhật.'}</p><div class="post-date">📅 ${date}</div><div class="post-actions"><span>👁 ${p.views||0}</span>${postActionButtons(p, user)}<span>💬 ${p.comments||0}</span><a class="read-more" href="${detailUrl}">Đọc tiếp</a></div></div></article>`;
+  return `<article class="post-card"><img class="post-thumb" src="${img}" alt="${p.title||'Bài viết'}"><div class="post-body"><span class="badge">${p.category||'Học tập'}</span><h3>${p.title||'Bài viết mới'}</h3><p>${p.content||'Nội dung đang được cập nhật.'}</p><div class="post-date">📅 ${date}</div><div class="post-actions">${postActionButtons(p, user)}</div><a class="read-more" href="${detailUrl}">Đọc tiếp</a></div></article>`;
 }
 
 export function postActionButtons(p, user=null){
   const likedBy = Array.isArray(p.likedBy) ? p.likedBy : [];
   const likes = Number.isFinite(p.likes) ? p.likes : likedBy.length;
+  const comments = Array.isArray(p.commentList) ? p.commentList.length : (p.comments || 0);
   const isLiked = Boolean(user?.uid && likedBy.includes(user.uid));
   const detailUrl = p.id ? `post.html?id=${encodeURIComponent(p.id)}` : 'post.html';
-  return `<button class="action-btn like-btn ${isLiked?'liked':''}" data-post-id="${p.id||''}" data-liked="${isLiked}" aria-label="${isLiked?'Bỏ thích':'Thích'} bài viết">❤️ <span class="like-count">${likes}</span></button><button class="action-btn share-btn" data-share-url="${detailUrl}" data-share-title="${p.title||'Bài viết'}" aria-label="Chia sẻ bài viết">📤 Chia sẻ</button>`;
+  return `<button class="action-btn like-btn ${isLiked?'liked':''}" data-post-id="${p.id||''}" data-liked="${isLiked}" aria-label="${isLiked?'Bỏ thích':'Thích'} bài viết">❤️ <span class="like-count">${likes}</span></button><button class="action-btn comment-btn" data-post-id="${p.id||''}" data-detail-url="${detailUrl}" aria-label="Bình luận bài viết">💬 <span class="comment-count">${comments}</span></button><button class="action-btn share-btn" data-post-id="${p.id||''}" data-share-url="${detailUrl}" data-share-title="${p.title||'Bài viết'}" aria-label="Chia sẻ bài viết">🔄 Chia sẻ</button>`;
+}
+
+export function isLoggedIn(user){
+  return Boolean(user?.uid);
 }
 
 export function bindPostInteractions(user, onChanged){
   document.querySelectorAll('.like-btn').forEach((btn)=>{
     btn.onclick = async()=>{
       const postId = btn.dataset.postId;
+      if(!isLoggedIn(user)){ alert('Bạn cần đăng nhập để thích bài viết.'); return; }
       if(!postId){ alert('Bài viết mẫu chưa thể thích.'); return; }
-      if(!user){ alert('Bạn cần đăng nhập để thích bài viết.'); return; }
       const liked = btn.dataset.liked === 'true';
       btn.disabled = true;
       try{
@@ -93,11 +98,29 @@ export function bindPostInteractions(user, onChanged){
       finally{ btn.disabled = false; }
     };
   });
+  document.querySelectorAll('.comment-btn').forEach((btn)=>{
+    btn.onclick = async()=>{
+      const postId = btn.dataset.postId;
+      if(!isLoggedIn(user)){ alert('Bạn cần đăng nhập để bình luận.'); return; }
+      if(!postId){ location.href = btn.dataset.detailUrl || 'post.html'; return; }
+      const text = prompt('Nhập bình luận của bạn:');
+      if(!text?.trim()) return;
+      try{
+        await updateDoc(doc(db, 'posts', postId), { commentList: arrayUnion({ userId: user.uid, userEmail: user.email, text: text.trim(), createdAt: new Date().toISOString() }), comments: increment(1) });
+        const count = btn.querySelector('.comment-count');
+        if(count) count.textContent = Number(count.textContent || 0) + 1;
+        onChanged?.(postId, 'comment');
+      }catch(e){ console.warn(e); alert('Không thể cập nhật bình luận.'); }
+    };
+  });
   document.querySelectorAll('.share-btn').forEach((btn)=>{
     btn.onclick = async()=>{
+      if(!isLoggedIn(user)){ alert('Bạn cần đăng nhập để chia sẻ bài viết.'); return; }
+      const postId = btn.dataset.postId;
       const url = new URL(btn.dataset.shareUrl || location.href, location.href).href;
       const title = btn.dataset.shareTitle || document.title;
       try{
+        if(postId) await updateDoc(doc(db, 'posts', postId), { sharedBy: arrayUnion(user.uid) });
         if(navigator.share) await navigator.share({ title, url });
         else{ await navigator.clipboard.writeText(url); alert('Đã sao chép liên kết bài viết.'); }
       }catch(e){ if(e.name !== 'AbortError'){ console.warn(e); alert('Không thể chia sẻ bài viết.'); } }
