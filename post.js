@@ -1,7 +1,7 @@
 import { auth, db } from './firebase.js';
 import { collection, addDoc, getDocs, getDoc, deleteDoc, doc, serverTimestamp, updateDoc, increment } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-import { renderShell, postCard, postActionButtons, emptyState, adminEmail, avatarUrl, bindPostInteractions } from './ui.js';
+import { renderShell, postCard, postActionButtons, emptyState, adminEmail, bindPostInteractions } from './ui.js';
 
 let currentUser=null;
 const detailId = new URLSearchParams(location.search).get('id');
@@ -19,7 +19,7 @@ async function renderPostDetail(id, user){
     post.views = (post.views || 0) + 1;
     const date = post.createdAt?.toDate ? post.createdAt.toDate().toLocaleDateString('vi-VN') : 'Mới đăng';
     const img = post.imageUrl || 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80';
-    main.innerHTML = `<article class="detail-card"><img class="detail-thumb" src="${img}" alt="${post.title||'Bài viết'}"><div class="detail-body"><span class="badge">${post.category||'Học tập'}</span><h1>${post.title||'Bài viết mới'}</h1><div class="post-meta"><img src="${avatarUrl}" alt=""><span>${post.author||post.userEmail||'Tác giả'}</span><span>${date}</span><span>👁 ${post.views||0}</span></div><p class="detail-content">${post.content||'Nội dung đang được cập nhật.'}</p><div class="post-actions detail-actions">${postActionButtons(post, user)}<span>💬 ${post.comments||0}</span></div><a class="read-more" href="news.html">← Quay lại Feed</a></div></article>`;
+    main.innerHTML = `<article class="detail-card"><img class="detail-thumb" src="${img}" alt="${post.title||'Bài viết'}"><div class="detail-body"><span class="badge">${post.category||'Học tập'}</span><h1>${post.title||'Bài viết mới'}</h1><p class="detail-content">${post.content||'Nội dung đang được cập nhật.'}</p><div class="post-date detail-date">📅 ${date}</div><div class="post-actions detail-actions"><span>👁 ${post.views||0}</span>${postActionButtons(post, user)}<span>💬 ${post.comments||0}</span></div><a class="read-more" href="news.html">← Quay lại Feed</a></div></article>`;
     bindPostInteractions(user);
   }catch(e){ console.warn(e); main.innerHTML = emptyState('Không tải được bài viết'); }
 }
