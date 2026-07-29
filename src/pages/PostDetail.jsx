@@ -1,0 +1,5 @@
+import { Link, useParams } from 'react-router-dom';
+import EmptyState from '../components/common/EmptyState.jsx';
+import { posts } from '../data/posts.js';
+import { formatDate } from '../utils/formatDate.js';
+export default function PostDetail(){ const {id}=useParams(); const post=posts.find((item)=>String(item.id)===id); if(!post) return <EmptyState text="Không tìm thấy bài viết"/>; return <article className="detail-card"><img className="detail-thumb" src={post.cover} alt={post.title}/><div className="detail-body"><span className="badge">{post.category}</span><h1>{post.title}</h1><p className="detail-content">{post.content}</p><div className="post-date detail-date">📅 {formatDate(post.createdAt)}</div><div className="post-actions detail-actions"><button className="action-btn like-btn">❤️ <span>{post.likes}</span></button><button className="action-btn comment-btn">💬 <span>{post.comments}</span></button><button className="action-btn share-btn">🔄 <span>{post.shares}</span></button></div><Link className="read-more" to="/feed">← Quay lại Feed</Link></div></article>;}

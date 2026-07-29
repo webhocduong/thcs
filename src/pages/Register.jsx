@@ -1,0 +1,1 @@
+export default function Register(){ return <><section className="page-head"><span className="eyebrow">Tài khoản</span><h1>Đăng ký</h1><p>Giai đoạn 1 chỉ dựng giao diện, chưa kết nối xác thực.</p></section><form className="postContainer"><input type="email" placeholder="Email"/><input type="password" placeholder="Mật khẩu"/><button type="button">Đăng ký</button></form></>;}

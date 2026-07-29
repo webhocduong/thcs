@@ -1,0 +1,6 @@
+import { useMemo, useState } from 'react';
+import EmptyState from '../components/common/EmptyState.jsx';
+import PostCard from '../components/posts/PostCard.jsx';
+import { posts } from '../data/posts.js';
+
+export default function Feed() { const [query,setQuery]=useState(''); const [filter,setFilter]=useState('new'); const filtered=useMemo(()=>[...posts].filter((p)=>(p.title+p.content).toLowerCase().includes(query.toLowerCase())).sort((a,b)=>filter==='commented'?b.comments-a.comments:filter==='new'?new Date(b.createdAt)-new Date(a.createdAt):b.likes-a.likes),[query,filter]); return <><section className="page-head"><span className="eyebrow">Feed</span><h1>Tất cả bài viết mới</h1><p>Lọc, tìm kiếm và đọc các chia sẻ mới nhất trong cộng đồng.</p></section><section className="toolbar"><input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder="Tìm trong feed..." /><button onClick={()=>setFilter('new')}>Mới nhất</button><button onClick={()=>setFilter('popular')}>Phổ biến</button><button onClick={()=>setFilter('liked')}>Được thích nhiều</button><button onClick={()=>setFilter('commented')}>Bình luận nhiều</button></section><section className="post-grid">{filtered.length?filtered.map((post)=><PostCard key={post.id} post={post}/>):<EmptyState text="Không tìm thấy bài phù hợp" />}</section><button className="load-more">Tải thêm</button></>; }
