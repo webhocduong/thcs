@@ -1,0 +1,5 @@
+import { useState } from 'react';
+import PostCard from '../components/posts/PostCard.jsx';
+import { posts } from '../data/posts.js';
+
+export default function Write() { const [draft,setDraft]=useState({title:'',category:'Học tập',content:''}); return <><section className="page-head"><span className="eyebrow">Sáng tạo nội dung</span><h1>Viết bài mới</h1><p>Chia sẻ kiến thức, hoạt động và kinh nghiệm học tập của bạn.</p></section><form className="postContainer" onSubmit={(e)=>e.preventDefault()}><input value={draft.title} onChange={(e)=>setDraft({...draft,title:e.target.value})} placeholder="Tiêu đề" /><select value={draft.category} onChange={(e)=>setDraft({...draft,category:e.target.value})}><option>Học tập</option><option>Toán</option><option>Ngữ văn</option><option>Tiếng Anh</option><option>Tin học</option></select><textarea value={draft.content} onChange={(e)=>setDraft({...draft,content:e.target.value})} placeholder="Nội dung" /><input type="file" accept="image/*" /><button type="submit">Đăng bài</button></form><h2 className="center">Bài viết học sinh</h2><div className="post-grid">{posts.map((post)=><PostCard key={post.id} post={post}/>)}</div></>; }

@@ -1,0 +1,1 @@
+export default function CategoryCard({ category }) { return <article className="category-card"><div className="category-icon">{category.icon}</div><h3>{category.name}</h3><p>{category.desc}</p><span>{category.count} bài viết</span></article>; }

@@ -1,0 +1,5 @@
+import { Link } from 'react-router-dom';
+import StatCard from '../components/common/StatCard.jsx';
+import PostCard from '../components/posts/PostCard.jsx';
+import { avatarUrl, posts } from '../data/posts.js';
+export default function Profile(){ return <><section className="profile-hero"><img src={avatarUrl} alt=""/><div><span className="eyebrow">Dashboard người dùng</span><h1>hocvien@example.com</h1><p>Email: hocvien@example.com</p><p>Vai trò: Thành viên • Ngày tham gia: 29/07/2026</p></div><Link className="primary-btn" to="/write">Viết bài mới</Link></section><div className="stats-grid"><StatCard label="Tổng bài viết" value={posts.length} icon="📝"/><StatCard label="Đã đăng" value={posts.length} icon="✅"/><StatCard label="Chờ duyệt" value={0} icon="⏳"/><StatCard label="Cần sửa" value={0} icon="🛠"/><StatCard label="Bị từ chối" value={0} icon="🚫"/></div><section className="tabs"><button>Bài viết của tôi</button><button>Hồ sơ</button><button>Đổi mật khẩu</button><button>Thông báo</button><button>Yêu thích</button><button>Cài đặt</button></section><section className="post-grid">{posts.map((post)=><PostCard key={post.id} post={post}/>)}</section></>;}
